@@ -35,6 +35,8 @@ import java.lang.annotation.RetentionPolicy;
 
 public final class TSnackbar {
 
+
+
     public static abstract class Callback {
        
         public static final int DISMISS_EVENT_SWIPE = 0;
@@ -198,6 +200,8 @@ public final class TSnackbar {
         tv.setTextColor(color);
         return this;
     }
+
+
 
     
     @NonNull
