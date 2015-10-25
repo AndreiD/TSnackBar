@@ -15,8 +15,8 @@ Ping me here :)
 
 #### TODO://
 
-* add easy change of colors
-* add icons
+* Add easy change of colors
+* Add icons
 
 
 #### Check https://github.com/AndreiD/UltimateAndroidAppTemplate if you like this one.
