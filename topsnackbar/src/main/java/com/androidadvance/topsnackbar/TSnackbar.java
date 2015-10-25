@@ -32,110 +32,50 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 
-/**
- * Snackbars provide lightweight feedback about an operation. They show a brief message at the
- * bottom of the screen on mobile and lower left on larger devices. Snackbars appear above all other
- * elements on screen and only one can be displayed at a time.
- * <p>
- * They automatically disappear after a timeout or after user interaction elsewhere on the screen,
- * particularly after interactions that summon a new surface or activity. Snackbars can be swiped
- * off screen.
- * <p>
- * Snackbars can contain an action which is set via
- * {@link #setAction(CharSequence, View.OnClickListener)}.
- * <p>
- * To be notified when a snackbar has been shown or dismissed, you can provide a {@link Callback}
- * via {@link #setCallback(Callback)}.</p>
- */
+
 public final class TSnackbar {
-    /**
-     * Callback class for {@link TSnackbar} instances.
-     *
-     * @see TSnackbar#setCallback(Callback)
-     */
+
     public static abstract class Callback {
-        /**
-         * Indicates that the TSnackbar was dismissed via a swipe.
-         */
+       
         public static final int DISMISS_EVENT_SWIPE = 0;
-        /**
-         * Indicates that the TSnackbar was dismissed via an action click.
-         */
+        
         public static final int DISMISS_EVENT_ACTION = 1;
-        /**
-         * Indicates that the TSnackbar was dismissed via a timeout.
-         */
+        
         public static final int DISMISS_EVENT_TIMEOUT = 2;
-        /**
-         * Indicates that the TSnackbar was dismissed via a call to {@link #dismiss()}.
-         */
+        
         public static final int DISMISS_EVENT_MANUAL = 3;
-        /**
-         * Indicates that the TSnackbar was dismissed from a new TSnackbar being shown.
-         */
+        
         public static final int DISMISS_EVENT_CONSECUTIVE = 4;
 
-        /**
-         * @hide
-         */
+        
         @IntDef({DISMISS_EVENT_SWIPE, DISMISS_EVENT_ACTION, DISMISS_EVENT_TIMEOUT,
                 DISMISS_EVENT_MANUAL, DISMISS_EVENT_CONSECUTIVE})
         @Retention(RetentionPolicy.SOURCE)
         public @interface DismissEvent {
         }
 
-        /**
-         * Called when the given {@link TSnackbar} has been dismissed, either through a time-out,
-         * having been manually dismissed, or an action being clicked.
-         *
-         * @param TSnackbar The TSnackbar which has been dismissed.
-         * @param event     The event which caused the dismissal. One of either:
-         *                  {@link #DISMISS_EVENT_SWIPE}, {@link #DISMISS_EVENT_ACTION},
-         *                  {@link #DISMISS_EVENT_TIMEOUT}, {@link #DISMISS_EVENT_MANUAL} or
-         *                  {@link #DISMISS_EVENT_CONSECUTIVE}.
-         * @see TSnackbar#dismiss()
-         */
+        
         public void onDismissed(TSnackbar TSnackbar, @DismissEvent int event) {
-            // empty
+            
         }
 
-        /**
-         * Called when the given {@link TSnackbar} is visible.
-         *
-         * @param TSnackbar The TSnackbar which is now visible.
-         * @see TSnackbar#show()
-         */
+        
         public void onShown(TSnackbar TSnackbar) {
-            // empty
+            
         }
     }
 
-    /**
-     * @hide
-     */
+    
     @IntDef({LENGTH_INDEFINITE, LENGTH_SHORT, LENGTH_LONG})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Duration {
     }
 
-    /**
-     * Show the TSnackbar indefinitely. This means that the TSnackbar will be displayed from the time
-     * that is {@link #show() shown} until either it is dismissed, or another TSnackbar is shown.
-     *
-     * @see #setDuration
-     */
+    
     public static final int LENGTH_INDEFINITE = -2;
-    /**
-     * Show the TSnackbar for a short period of time.
-     *
-     * @see #setDuration
-     */
+    
     public static final int LENGTH_SHORT = -1;
-    /**
-     * Show the TSnackbar for a long period of time.
-     *
-     * @see #setDuration
-     */
+    
     public static final int LENGTH_LONG = 0;
     private static final int ANIMATION_DURATION = 250;
     private static final int ANIMATION_FADE_DURATION = 180;
@@ -173,23 +113,7 @@ public final class TSnackbar {
         mView = (SnackbarLayout) inflater.inflate(R.layout.tsnackbar_layout, mParent, false);
     }
 
-    /**
-     * Make a TSnackbar to display a message
-     * <p/>
-     * <p>TSnackbar will try and find a parent view to hold TSnackbar's view from the value given
-     * to {@code view}. TSnackbar will walk up the view tree trying to find a suitable parent,
-     * which is defined as a {@link CoordinatorLayout} or the window decor's content view,
-     * whichever comes first.
-     * <p/>
-     * <p>Having a {@link CoordinatorLayout} in your view hierarchy allows TSnackbar to enable
-     * certain features, such as swipe-to-dismiss and automatically moving of widgets like
-     * {@link FloatingActionButton}.
-     *
-     * @param view     The view to find a parent from.
-     * @param text     The text to show.  Can be formatted text.
-     * @param duration How long to display the message.  Either {@link #LENGTH_SHORT} or {@link
-     *                 #LENGTH_LONG}
-     */
+    
     @NonNull
     public static TSnackbar make(@NonNull View view, @NonNull CharSequence text,
                                  @Duration int duration) {
@@ -199,23 +123,7 @@ public final class TSnackbar {
         return TSnackbar;
     }
 
-    /**
-     * Make a TSnackbar to display a message.
-     * <p/>
-     * <p>TSnackbar will try and find a parent view to hold TSnackbar's view from the value given
-     * to {@code view}. TSnackbar will walk up the view tree trying to find a suitable parent,
-     * which is defined as a {@link CoordinatorLayout} or the window decor's content view,
-     * whichever comes first.
-     * <p/>
-     * <p>Having a {@link CoordinatorLayout} in your view hierarchy allows TSnackbar to enable
-     * certain features, such as swipe-to-dismiss and automatically moving of widgets like
-     * {@link FloatingActionButton}.
-     *
-     * @param view     The view to find a parent from.
-     * @param resId    The resource id of the string resource to use. Can be formatted text.
-     * @param duration How long to display the message.  Either {@link #LENGTH_SHORT} or {@link
-     *                 #LENGTH_LONG}
-     */
+    
     @NonNull
     public static TSnackbar make(@NonNull View view, @StringRes int resId, @Duration int duration) {
         return make(view, view.getResources().getText(resId), duration);
@@ -225,45 +133,35 @@ public final class TSnackbar {
         ViewGroup fallback = null;
         do {
             if (view instanceof CoordinatorLayout) {
-                // We've found a CoordinatorLayout, use it
+                
                 return (ViewGroup) view;
             } else if (view instanceof FrameLayout) {
                 if (view.getId() == android.R.id.content) {
-                    // If we've hit the decor content view, then we didn't find a CoL in the
-                    // hierarchy, so use it.
+                    
+                    
                     return (ViewGroup) view;
                 } else {
-                    // It's not the content view but we'll use it as our fallback
+                    
                     fallback = (ViewGroup) view;
                 }
             }
             if (view != null) {
-                // Else, we will loop and crawl up the view hierarchy and try to find a parent
+                
                 final ViewParent parent = view.getParent();
                 view = parent instanceof View ? (View) parent : null;
             }
         } while (view != null);
-        // If we reach here then we didn't find a CoL or a suitable content view so we'll fallback
+        
         return fallback;
     }
 
-    /**
-     * Set the action to be displayed in this {@link TSnackbar}.
-     *
-     * @param resId    String resource to display
-     * @param listener callback to be invoked when the action is clicked
-     */
+    
     @NonNull
     public TSnackbar setAction(@StringRes int resId, View.OnClickListener listener) {
         return setAction(mContext.getText(resId), listener);
     }
 
-    /**
-     * Set the action to be displayed in this {@link TSnackbar}.
-     *
-     * @param text     Text to display
-     * @param listener callback to be invoked when the action is clicked
-     */
+    
     @NonNull
     public TSnackbar setAction(CharSequence text, final View.OnClickListener listener) {
         final TextView tv = mView.getActionView();
@@ -277,7 +175,7 @@ public final class TSnackbar {
                 @Override
                 public void onClick(View view) {
                     listener.onClick(view);
-                    // Now dismiss the TSnackbar
+                    
                     dispatchDismiss(Callback.DISMISS_EVENT_ACTION);
                 }
             });
@@ -285,10 +183,7 @@ public final class TSnackbar {
         return this;
     }
 
-    /**
-     * Sets the text color of the action specified in
-     * {@link #setAction(CharSequence, View.OnClickListener)}.
-     */
+    
     @NonNull
     public TSnackbar setActionTextColor(ColorStateList colors) {
         final TextView tv = mView.getActionView();
@@ -296,10 +191,7 @@ public final class TSnackbar {
         return this;
     }
 
-    /**
-     * Sets the text color of the action specified in
-     * {@link #setAction(CharSequence, View.OnClickListener)}.
-     */
+    
     @NonNull
     public TSnackbar setActionTextColor(@ColorInt int color) {
         final TextView tv = mView.getActionView();
@@ -307,11 +199,7 @@ public final class TSnackbar {
         return this;
     }
 
-    /**
-     * Update the text in this {@link TSnackbar}.
-     *
-     * @param message The new text for the Toast.
-     */
+    
     @NonNull
     public TSnackbar setText(@NonNull CharSequence message) {
         final TextView tv = mView.getMessageView();
@@ -319,57 +207,37 @@ public final class TSnackbar {
         return this;
     }
 
-    /**
-     * Update the text in this {@link TSnackbar}.
-     *
-     * @param resId The new text for the Toast.
-     */
+    
     @NonNull
     public TSnackbar setText(@StringRes int resId) {
         return setText(mContext.getText(resId));
     }
 
-    /**
-     * Set how long to show the view for.
-     *
-     * @param duration either be one of the predefined lengths:
-     *                 {@link #LENGTH_SHORT}, {@link #LENGTH_LONG}, or a custom duration
-     *                 in milliseconds.
-     */
+    
     @NonNull
     public TSnackbar setDuration(@Duration int duration) {
         mDuration = duration;
         return this;
     }
 
-    /**
-     * Return the duration.
-     *
-     * @see #setDuration
-     */
+    
     @Duration
     public int getDuration() {
         return mDuration;
     }
 
-    /**
-     * Returns the {@link TSnackbar}'s view.
-     */
+    
     @NonNull
     public View getView() {
         return mView;
     }
 
-    /**
-     * Show the {@link TSnackbar}.
-     */
+    
     public void show() {
         SnackbarManager.getInstance().show(mDuration, mManagerCallback);
     }
 
-    /**
-     * Dismiss the {@link TSnackbar}.
-     */
+    
     public void dismiss() {
         dispatchDismiss(Callback.DISMISS_EVENT_MANUAL);
     }
@@ -378,18 +246,14 @@ public final class TSnackbar {
         SnackbarManager.getInstance().dismiss(mManagerCallback, event);
     }
 
-    /**
-     * Set a callback to be called when this the visibility of this {@link TSnackbar} changes.
-     */
+    
     @NonNull
     public TSnackbar setCallback(Callback callback) {
         mCallback = callback;
         return this;
     }
 
-    /**
-     * Return whether this TSnackbar is currently being shown.
-     */
+    
     public boolean isShown() {
         return mView.isShown();
     }
@@ -410,7 +274,7 @@ public final class TSnackbar {
         if (mView.getParent() == null) {
             final ViewGroup.LayoutParams lp = mView.getLayoutParams();
             if (lp instanceof CoordinatorLayout.LayoutParams) {
-                // If our LayoutParams are from a CoordinatorLayout, we'll setup our Behavior
+                
                 final Behavior behavior = new Behavior();
                 behavior.setStartAlphaSwipeDistance(0.1f);
                 behavior.setEndAlphaSwipeDistance(0.6f);
@@ -426,11 +290,11 @@ public final class TSnackbar {
                         switch (state) {
                             case SwipeDismissBehavior.STATE_DRAGGING:
                             case SwipeDismissBehavior.STATE_SETTLING:
-                                // If the view is being dragged or settling, cancel the timeout
+                                
                                 SnackbarManager.getInstance().cancelTimeout(mManagerCallback);
                                 break;
                             case SwipeDismissBehavior.STATE_IDLE:
-                                // If the view has been released and is idle, restore the timeout
+                                
                                 SnackbarManager.getInstance().restoreTimeout(mManagerCallback);
                                 break;
                         }
@@ -441,10 +305,10 @@ public final class TSnackbar {
             mParent.addView(mView);
         }
         if (ViewCompat.isLaidOut(mView)) {
-            // If the view is already laid out, animate it now
+            
             animateViewIn();
         } else {
-            // Otherwise, add one of our layout change listeners and animate it in when laid out
+            
             mView.setOnLayoutChangeListener(new SnackbarLayout.OnLayoutChangeListener() {
                 @Override
                 public void onLayoutChange(View view, int left, int top, int right, int bottom) {
@@ -513,19 +377,17 @@ public final class TSnackbar {
     }
 
     private void onViewHidden(int event) {
-        // First remove the view from the parent
+        
         mParent.removeView(mView);
-        // Now call the dismiss listener (if available)
+        
         if (mCallback != null) {
             mCallback.onDismissed(this, event);
         }
-        // Finally, tell the SnackbarManager that it has been dismissed
+        
         SnackbarManager.getInstance().onDismissed(mManagerCallback);
     }
 
-    /**
-     * @return if the view is being being dragged or settled by {@link SwipeDismissBehavior}.
-     */
+    
     private boolean isBeingDragged() {
         final ViewGroup.LayoutParams lp = mView.getLayoutParams();
         if (lp instanceof CoordinatorLayout.LayoutParams) {
@@ -539,9 +401,7 @@ public final class TSnackbar {
         return false;
     }
 
-    /**
-     * @hide
-     */
+    
     public static class SnackbarLayout extends LinearLayout {
         private TextView mMessageView;
         private Button mActionView;
@@ -570,9 +430,9 @@ public final class TSnackbar {
             }
             a.recycle();
             setClickable(true);
-            // Now inflate our content. We need to do this manually rather than using an <include>
-            // in the layout since older versions of the Android do not inflate includes with
-            // the correct Context.
+            
+            
+            
             LayoutInflater.from(context).inflate(R.layout.tsnackbar_layout_include, this);
         }
 
@@ -686,8 +546,8 @@ public final class TSnackbar {
         @Override
         public boolean onInterceptTouchEvent(CoordinatorLayout parent, SnackbarLayout child,
                                              MotionEvent event) {
-            // We want to make sure that we disable any TSnackbar timeouts if the user is
-            // currently touching the TSnackbar. We restore the timeout when complete
+            
+            
             if (parent.isPointInChildBounds(child, (int) event.getX(), (int) event.getY())) {
                 switch (event.getActionMasked()) {
                     case MotionEvent.ACTION_DOWN:

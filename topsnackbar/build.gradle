@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
@@ -7,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
     }
     buildTypes {
         release {
@@ -18,9 +19,41 @@ android {
     }
 }
 
+
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'tsnackbar'
+
+    publishedGroupId = 'com.androidadvance.topsnackbar'
+    libraryName = 'tsnackbar'
+    artifact = 'tsnackbar'
+
+    libraryDescription = 'A Snackbar showing on top (Android).'
+
+    siteUrl = 'https://github.com/AndreiD/TSnackBar'
+    gitUrl = 'https://github.com/AndreiD/TSnackBar.git'
+
+    libraryVersion = '0.0.3'
+
+    developerId = 'andreid'
+    developerName = 'Andrei Dan'
+    developerEmail = 'danandreist@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+
+
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23+'
+
 }
