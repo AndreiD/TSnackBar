@@ -36,13 +36,15 @@ compile 'com.androidadvance:topsnackbar:0.0.6'
 
 ##### Simple usage:
 
+~~~~
  TSnackbar.make(findViewById(android.R.id.content),"xxxx",TSnackbar.LENGTH_LONG).show();
+~~~~
 
 ##### Custom colors:
 
 ~~~~
                 TSnackbar snackbar = TSnackbar
-                        .make(findViewById(R.id.coordinatorLayout), "Had a snack at Snackbar  Had a snack at Snackbar  Had a snack at Snackbar Had a snack at Snackbar Had a snack at Snackbar Had a snack at Snackbar", TSnackbar.LENGTH_LONG);
+                        .make(findViewById(R.id.coordinatorLayout), "A Snackbar is a lightweight material design method for providing feedback to a user, while optionally providing an action to the user.", TSnackbar.LENGTH_LONG);
                 snackbar.setActionTextColor(Color.WHITE);
                 View snackbarView = snackbar.getView();
                 snackbarView.setBackgroundColor(Color.parseColor("#CC00CC"));
@@ -51,7 +53,7 @@ compile 'com.androidadvance:topsnackbar:0.0.6'
                 snackbar.show();
 ~~~~
 
-  ##### Custom colors & action button:              
+##### Custom colors & Action Button:              
 
 ~~~~                
                 TSnackbar snackbar = TSnackbar
@@ -69,6 +71,7 @@ compile 'com.androidadvance:topsnackbar:0.0.6'
                 textView.setTextColor(Color.YELLOW);
                 snackbar.show();
 ~~~~
+
 
 #### Updates, Questions, and Requests
 
