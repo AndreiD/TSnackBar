@@ -10,19 +10,6 @@ Show a Snackbar from the top.
 
 ### Instalation:
 
-in your project build.gradle add
-
-~~~~
-allprojects {
-    repositories {
-        jcenter()
-        maven {
-            url 'https://dl.bintray.com/andreid/maven/'
-        }
-    }
-}
-~~~~
-
 in your app build.gradle add
 
 ~~~~
