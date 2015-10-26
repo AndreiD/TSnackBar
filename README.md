@@ -8,9 +8,67 @@ Show a Snackbar from the top.
 
 
 
-#### How to use it:
+### Instalation:
 
-* You have the aar file here https://bintray.com/artifact/download/andreid/maven/com/androidadvance/topsnackbar/topsnackbar/0.0.2/topsnackbar-0.0.2.aar or you can get the files manually from the "topsnackbar" folder
+in your project build.gradle add
+
+~~~~
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url 'https://dl.bintray.com/andreid/maven/'
+        }
+    }
+}
+~~~~
+
+in your app build.gradle add
+
+~~~~
+compile 'com.androidadvance:topsnackbar:0.0.6'
+~~~~
+
+
+
+### How to use it:
+
+
+##### Simple usage:
+
+ TSnackbar.make(findViewById(android.R.id.content),"xxxx",TSnackbar.LENGTH_LONG).show();
+
+##### Custom colors:
+
+~~~~
+                TSnackbar snackbar = TSnackbar
+                        .make(findViewById(R.id.coordinatorLayout), "Had a snack at Snackbar  Had a snack at Snackbar  Had a snack at Snackbar Had a snack at Snackbar Had a snack at Snackbar Had a snack at Snackbar", TSnackbar.LENGTH_LONG);
+                snackbar.setActionTextColor(Color.WHITE);
+                View snackbarView = snackbar.getView();
+                snackbarView.setBackgroundColor(Color.parseColor("#CC00CC"));
+                TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.tsnackbar.R.id.snackbar_text);
+                textView.setTextColor(Color.YELLOW);
+                snackbar.show();
+~~~~
+
+  ##### Custom colors & action button:              
+
+~~~~                
+                TSnackbar snackbar = TSnackbar
+                        .make(findViewById(R.id.coordinatorLayout), "Had a snack at Snackbar", TSnackbar.LENGTH_LONG)
+                        .setAction("Undo", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Log.d("CLICKED UNDO", "CLIDKED UNDO");
+                            }
+                        });
+                snackbar.setActionTextColor(Color.BLACK);
+                View snackbarView = snackbar.getView();
+                snackbarView.setBackgroundColor(Color.parseColor("#00CC00"));
+                TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.tsnackbar.R.id.snackbar_text);
+                textView.setTextColor(Color.YELLOW);
+                snackbar.show();
+~~~~
 
 #### Updates, Questions, and Requests
 
