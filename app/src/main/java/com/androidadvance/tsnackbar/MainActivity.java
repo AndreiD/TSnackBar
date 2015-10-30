@@ -36,19 +36,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                TSnackbar snackbar = TSnackbar
-                        .make(findViewById(R.id.coordinatorLayout), "Had a snack at Snackbar", TSnackbar.LENGTH_LONG)
+                  TSnackbar snackbar = TSnackbar
+                        .make(findViewById(android.R.id.content), "Had a snack at Snackbar", TSnackbar.LENGTH_LONG)
                         .setAction("Undo", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Log.d("CLICKED UNDO", "CLIDKED UNDO");
+                                Log.d("Action Button", "onClick triggered");
                             }
                         });
-                snackbar.setActionTextColor(Color.BLACK);
+                snackbar.setActionTextColor(Color.LTGRAY);
+                snackbar.addIcon(R.mipmap.ic_core, 200);
                 View snackbarView = snackbar.getView();
-                snackbarView.setBackgroundColor(Color.parseColor("#00CC00"));
-                TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.tsnackbar.R.id.snackbar_text);
-                textView.setTextColor(Color.YELLOW);
+                snackbarView.setBackgroundColor(Color.parseColor("#555555"));
+                TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
                 snackbar.show();
 
             }
@@ -70,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
                 snackbar.setActionTextColor(Color.WHITE);
                 View snackbarView = snackbar.getView();
                 snackbarView.setBackgroundColor(Color.parseColor("#0000CC"));
-                TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.tsnackbar.R.id.snackbar_text);
-                textView.setTextColor(Color.YELLOW);
+                TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
                 snackbar.show();
 
             }
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 snackbar.setActionTextColor(Color.WHITE);
                 View snackbarView = snackbar.getView();
                 snackbarView.setBackgroundColor(Color.parseColor("#CC00CC"));
-                TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.tsnackbar.R.id.snackbar_text);
+                TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
                 textView.setTextColor(Color.YELLOW);
                 snackbar.show();
 
