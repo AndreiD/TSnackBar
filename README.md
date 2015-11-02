@@ -6,6 +6,9 @@ Show a Snackbar from the top.
 
 ![alt text](https://raw.githubusercontent.com/AndreiD/TSnackBar/master/app/snackbar.gif "How the app looks 1")
 
+Icons support:
+
+![alt text](https://raw.githubusercontent.com/AndreiD/TSnackBar/master/app/with_icon.jpg "How the app looks 1")
 
 
 ### Instalation:
@@ -13,7 +16,7 @@ Show a Snackbar from the top.
 in your app build.gradle add
 
 ~~~~
-compile 'com.androidadvance:topsnackbar:0.0.6'
+compile 'com.androidadvance:topsnackbar:0.0.7'
 ~~~~
 
 
@@ -51,6 +54,7 @@ TSnackbar snackbar = TSnackbar
                             }
                         });
 snackbar.setActionTextColor(Color.BLACK);
+snackbar.addIcon(R.mipmap.ic_core, 200); <<-- replace me!
 View snackbarView = snackbar.getView();
 snackbarView.setBackgroundColor(Color.parseColor("#00CC00"));
 TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
@@ -71,8 +75,7 @@ Ping me here :)
 
 #### TODO://
 
-* Add easy change of colors
-* Add icons
+* Waiting for your suggestions
 
 
 #### Check https://github.com/AndreiD/UltimateAndroidAppTemplate if you like this one.
