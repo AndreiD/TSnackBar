@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.androidadvance.topsnackbar.TSnackbar;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private RelativeLayout relative_layout_main;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         Button button_example_2 = (Button) findViewById(R.id.button_example_2);
         Button button_example_3 = (Button) findViewById(R.id.button_example_3);
         Button button_example_4 = (Button) findViewById(R.id.button_example_4);
+        relative_layout_main = (RelativeLayout) findViewById(R.id.relative_layout_main);
 
         button_example_1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                   TSnackbar snackbar = TSnackbar
-                        .make(findViewById(android.R.id.content), "Had a snack at Snackbar", TSnackbar.LENGTH_LONG)
+                        .make(relative_layout_main, "Had a snack at Snackbar", TSnackbar.LENGTH_LONG)
                         .setAction("Undo", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 TSnackbar snackbar = TSnackbar
-                        .make(findViewById(R.id.coordinatorLayout), "Had a snack at Snackbar", TSnackbar.LENGTH_LONG)
+                        .make(relative_layout_main, "Had a snack at Snackbar", TSnackbar.LENGTH_LONG)
                         .setAction("Action", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -85,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 TSnackbar snackbar = TSnackbar
-                        .make(findViewById(R.id.coordinatorLayout), "Had a snack at Snackbar  Had a snack at Snackbar  Had a snack at Snackbar Had a snack at Snackbar Had a snack at Snackbar Had a snack at Snackbar", TSnackbar.LENGTH_LONG);
+                        .make(relative_layout_main, "Had a snack at Snackbar  Had a snack at Snackbar  Had a snack at Snackbar Had a snack at Snackbar Had a snack at Snackbar Had a snack at Snackbar", TSnackbar.LENGTH_LONG);
                 snackbar.setActionTextColor(Color.WHITE);
                 View snackbarView = snackbar.getView();
                 snackbarView.setBackgroundColor(Color.parseColor("#CC00CC"));

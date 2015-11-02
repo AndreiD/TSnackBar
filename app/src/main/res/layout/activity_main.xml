@@ -7,43 +7,27 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:id="@+id/relative_layout_main"
+            android:layout_height="match_parent">
 
             <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:gravity="bottom"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-
-            <Button
-                android:layout_width="0dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="example 1"
-                android:id="@+id/button_example_1"
-                android:layout_weight="1" />
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="example 2"
-                android:id="@+id/button_example_2"
-                android:layout_weight="1" />
-        </LinearLayout>
-
-            <LinearLayout
+                <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:gravity="bottom"
@@ -55,18 +39,45 @@
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="example 3"
-                    android:id="@+id/button_example_3"
+                    android:text="example 1"
+                    android:id="@+id/button_example_1"
                     android:layout_weight="1" />
 
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="example 4"
-                    android:id="@+id/button_example_4"
+                    android:text="example 2"
+                    android:id="@+id/button_example_2"
                     android:layout_weight="1" />
             </LinearLayout>
-        </LinearLayout>
 
-    </RelativeLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:gravity="bottom"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="example 3"
+                        android:id="@+id/button_example_3"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="example 4"
+                        android:id="@+id/button_example_4"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
 </android.support.design.widget.CoordinatorLayout>
