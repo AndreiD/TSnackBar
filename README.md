@@ -78,4 +78,6 @@ Ping me here :)
 * Waiting for your suggestions
 
 
-#### Check https://github.com/AndreiD/UltimateAndroidAppTemplate if you like this one.
+#### You like this library ? Check:
+- https://github.com/AndreiD/surveylib - A very good looking survey library
+- https://github.com/AndreiD/UltimateAndroidAppTemplate The best android template app to start with
