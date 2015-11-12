@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 8
-        versionName "1.8"
+        versionCode 9
+        versionName "1.9"
     }
     buildTypes {
         release {
@@ -34,7 +34,7 @@ ext {
     siteUrl = 'https://github.com/AndreiD/TSnackBar'
     gitUrl = 'https://github.com/AndreiD/TSnackBar.git'
 
-    libraryVersion = '0.0.8'
+    libraryVersion = '0.0.9'
 
     developerId = 'andreid'
     developerName = 'Andrei Dan'
