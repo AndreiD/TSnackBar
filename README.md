@@ -16,7 +16,7 @@ Icons support:
 in your app build.gradle add
 
 ~~~~
-compile 'com.androidadvance:topsnackbar:0.0.8'
+compile 'com.androidadvance:topsnackbar:0.0.9'
 ~~~~
 
 
