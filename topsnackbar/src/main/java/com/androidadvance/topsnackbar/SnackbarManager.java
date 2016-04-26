@@ -26,9 +26,12 @@ import java.lang.ref.WeakReference;
  * Manages {@link TSnackbar}s.
  */
 class SnackbarManager {
+
     private static final int MSG_TIMEOUT = 0;
+
     private static final int SHORT_DURATION_MS = 1500;
     private static final int LONG_DURATION_MS = 2750;
+
     private static SnackbarManager sSnackbarManager;
 
     static SnackbarManager getInstance() {
@@ -40,6 +43,7 @@ class SnackbarManager {
 
     private final Object mLock;
     private final Handler mHandler;
+
     private SnackbarRecord mCurrentSnackbar;
     private SnackbarRecord mNextSnackbar;
 
@@ -81,6 +85,7 @@ class SnackbarManager {
                 // Else, we need to create a new record and queue it
                 mNextSnackbar = new SnackbarRecord(duration, callback);
             }
+
             if (mCurrentSnackbar != null && cancelSnackbarLocked(mCurrentSnackbar,
                     TSnackbar.Callback.DISMISS_EVENT_CONSECUTIVE)) {
                 // If we currently have a TSnackbar, try and cancel it and wait in line
@@ -148,6 +153,18 @@ class SnackbarManager {
         }
     }
 
+    public boolean isCurrent(Callback callback) {
+        synchronized (mLock) {
+            return isCurrentSnackbar(callback);
+        }
+    }
+
+    public boolean isCurrentOrNext(Callback callback) {
+        synchronized (mLock) {
+            return isCurrentSnackbar(callback) || isNextSnackbar(callback);
+        }
+    }
+
     private static class SnackbarRecord {
         private final WeakReference<Callback> callback;
         private int duration;
@@ -166,6 +183,7 @@ class SnackbarManager {
         if (mNextSnackbar != null) {
             mCurrentSnackbar = mNextSnackbar;
             mNextSnackbar = null;
+
             final Callback callback = mCurrentSnackbar.callback.get();
             if (callback != null) {
                 callback.show();
@@ -198,6 +216,7 @@ class SnackbarManager {
             // If we're set to indefinite, we don't want to set a timeout
             return;
         }
+
         int durationMs = LONG_DURATION_MS;
         if (r.duration > 0) {
             durationMs = r.duration;
@@ -215,4 +234,5 @@ class SnackbarManager {
             }
         }
     }
+
 }
