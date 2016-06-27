@@ -1,25 +1,33 @@
 package com.androidadvance.topsnackbar;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.SwipeDismissBehavior;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -68,8 +76,10 @@ public final class TSnackbar {
         /**
          * @hide
          */
-        @IntDef({DISMISS_EVENT_SWIPE, DISMISS_EVENT_ACTION, DISMISS_EVENT_TIMEOUT,
-                DISMISS_EVENT_MANUAL, DISMISS_EVENT_CONSECUTIVE})
+        @IntDef({
+                DISMISS_EVENT_SWIPE, DISMISS_EVENT_ACTION, DISMISS_EVENT_TIMEOUT,
+                DISMISS_EVENT_MANUAL, DISMISS_EVENT_CONSECUTIVE
+        })
         @Retention(RetentionPolicy.SOURCE)
         public @interface DismissEvent {
         }
@@ -212,7 +222,8 @@ public final class TSnackbar {
      */
     @NonNull
     public static TSnackbar make(@NonNull View view, @StringRes int resId, @Duration int duration) {
-        return make(view, view.getResources().getText(resId), duration);
+        return make(view, view.getResources()
+                .getText(resId), duration);
     }
 
     private static ViewGroup findSuitableParent(View view) {
@@ -246,13 +257,101 @@ public final class TSnackbar {
     /**
      * size should be around 200....
      */
+    @Deprecated
     public TSnackbar addIcon(int resource_id, int size) {
         final TextView tv = mView.getMessageView();
 
-        tv.setCompoundDrawablesWithIntrinsicBounds(new BitmapDrawable(Bitmap.createScaledBitmap(((BitmapDrawable) (mContext.getResources().getDrawable(resource_id))).getBitmap(), size, size, true)), null, null, null);
+        tv.setCompoundDrawablesWithIntrinsicBounds(new BitmapDrawable(Bitmap.createScaledBitmap(((BitmapDrawable) (mContext.getResources()
+                .getDrawable(resource_id))).getBitmap(), size, size, true)), null, null, null);
 
         return this;
     }
+
+    public TSnackbar setIconPadding(int padding) {
+        final TextView tv = mView.getMessageView();
+        tv.setCompoundDrawablePadding(padding);
+        return this;
+    }
+
+
+    public TSnackbar setIconLeft(@DrawableRes int drawableRes, float sizeDp) {
+        final TextView tv = mView.getMessageView();
+        Drawable drawable = ContextCompat.getDrawable(mContext, drawableRes);
+        if (drawable != null) {
+            drawable = fitDrawable(drawable, (int) convertDpToPixel(sizeDp, mContext));
+        } else {
+            throw new IllegalArgumentException("resource_id is not a valid drawable!");
+        }
+        final Drawable[] compoundDrawables = tv.getCompoundDrawables();
+        tv.setCompoundDrawables(drawable, compoundDrawables[1], compoundDrawables[2], compoundDrawables[3]);
+        return this;
+    }
+
+
+    public TSnackbar setIconRight(@DrawableRes int drawableRes, float sizeDp) {
+        final TextView tv = mView.getMessageView();
+        Drawable drawable = ContextCompat.getDrawable(mContext, drawableRes);
+        if (drawable != null) {
+            drawable = fitDrawable(drawable, (int) convertDpToPixel(sizeDp, mContext));
+        } else {
+            throw new IllegalArgumentException("resource_id is not a valid drawable!");
+        }
+        final Drawable[] compoundDrawables = tv.getCompoundDrawables();
+        tv.setCompoundDrawables(compoundDrawables[0], compoundDrawables[1], drawable, compoundDrawables[3]);
+        return this;
+    }
+
+    private Drawable fitDrawable(Drawable drawable, int sizePx) {
+        if (drawable.getIntrinsicWidth() != sizePx || drawable.getIntrinsicHeight() != sizePx) {
+
+            if (drawable instanceof BitmapDrawable) {
+//                Log.w(TSnackbar.class.getSimpleName(), "Needs resizing: " + drawable.getIntrinsicWidth() + "x" + drawable.getIntrinsicHeight() + " to " + sizePx + "x" + sizePx);
+                drawable = new BitmapDrawable(mContext.getResources(), Bitmap.createScaledBitmap(getBitmap(drawable), sizePx, sizePx, true));
+            }
+        }
+        drawable.setBounds(0, 0, sizePx, sizePx);
+
+        return drawable;
+    }
+
+
+    /**
+     * This method converts dp unit to equivalent pixels, depending on device density.
+     *
+     * @param dp      A value in dp (density independent pixels) unit. Which we need to convert into pixels
+     * @param context Context to get resources and device specific display metrics
+     * @return A float value to represent px equivalent to dp depending on device density
+     */
+    private static float convertDpToPixel(float dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return px;
+    }
+
+
+    //From: http://stackoverflow.com/questions/33696488/getting-bitmap-from-vector-drawable
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private static Bitmap getBitmap(VectorDrawable vectorDrawable) {
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        vectorDrawable.draw(canvas);
+        return bitmap;
+    }
+
+
+    private static Bitmap getBitmap(Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        } else if (drawable instanceof VectorDrawable) {
+            return getBitmap((VectorDrawable) drawable);
+        } else {
+            throw new IllegalArgumentException("unsupported drawable type");
+        }
+    }
+
 
     /**
      * Set the action to be displayed in this {@link TSnackbar}.
@@ -372,7 +471,8 @@ public final class TSnackbar {
      * Show the {@link TSnackbar}.
      */
     public void show() {
-        SnackbarManager.getInstance().show(mDuration, mManagerCallback);
+        SnackbarManager.getInstance()
+                .show(mDuration, mManagerCallback);
     }
 
     /**
@@ -383,7 +483,8 @@ public final class TSnackbar {
     }
 
     private void dispatchDismiss(@Callback.DismissEvent int event) {
-        SnackbarManager.getInstance().dismiss(mManagerCallback, event);
+        SnackbarManager.getInstance()
+                .dismiss(mManagerCallback, event);
     }
 
     /**
@@ -399,7 +500,8 @@ public final class TSnackbar {
      * Return whether this {@link TSnackbar} is currently being shown.
      */
     public boolean isShown() {
-        return SnackbarManager.getInstance().isCurrent(mManagerCallback);
+        return SnackbarManager.getInstance()
+                .isCurrent(mManagerCallback);
     }
 
     /**
@@ -407,7 +509,8 @@ public final class TSnackbar {
      * shown next.
      */
     public boolean isShownOrQueued() {
-        return SnackbarManager.getInstance().isCurrentOrNext(mManagerCallback);
+        return SnackbarManager.getInstance()
+                .isCurrentOrNext(mManagerCallback);
     }
 
     private final SnackbarManager.Callback mManagerCallback = new SnackbarManager.Callback() {
@@ -445,11 +548,13 @@ public final class TSnackbar {
                             case SwipeDismissBehavior.STATE_DRAGGING:
                             case SwipeDismissBehavior.STATE_SETTLING:
                                 // If the view is being dragged or settling, cancel the timeout
-                                SnackbarManager.getInstance().cancelTimeout(mManagerCallback);
+                                SnackbarManager.getInstance()
+                                        .cancelTimeout(mManagerCallback);
                                 break;
                             case SwipeDismissBehavior.STATE_IDLE:
                                 // If the view has been released and is idle, restore the timeout
-                                SnackbarManager.getInstance().restoreTimeout(mManagerCallback);
+                                SnackbarManager.getInstance()
+                                        .restoreTimeout(mManagerCallback);
                                 break;
                         }
                     }
@@ -515,9 +620,11 @@ public final class TSnackbar {
                             if (mCallback != null) {
                                 mCallback.onShown(TSnackbar.this);
                             }
-                            SnackbarManager.getInstance().onShown(mManagerCallback);
+                            SnackbarManager.getInstance()
+                                    .onShown(mManagerCallback);
                         }
-                    }).start();
+                    })
+                    .start();
         } else {
             Animation anim = AnimationUtils.loadAnimation(mView.getContext(),
                     R.anim.top_in);
@@ -529,7 +636,8 @@ public final class TSnackbar {
                     if (mCallback != null) {
                         mCallback.onShown(TSnackbar.this);
                     }
-                    SnackbarManager.getInstance().onShown(mManagerCallback);
+                    SnackbarManager.getInstance()
+                            .onShown(mManagerCallback);
                 }
 
                 @Override
@@ -560,7 +668,8 @@ public final class TSnackbar {
                         public void onAnimationEnd(View view) {
                             onViewHidden(event);
                         }
-                    }).start();
+                    })
+                    .start();
         } else {
             Animation anim = AnimationUtils.loadAnimation(mView.getContext(), R.anim.top_out);
             anim.setInterpolator(com.androidadvance.topsnackbar.AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
@@ -593,7 +702,8 @@ public final class TSnackbar {
 
     private void onViewHidden(int event) {
         // First tell the SnackbarManager that it has been dismissed
-        SnackbarManager.getInstance().onDismissed(mManagerCallback);
+        SnackbarManager.getInstance()
+                .onDismissed(mManagerCallback);
         // Now call the dismiss listener (if available)
         if (mCallback != null) {
             mCallback.onDismissed(this, event);
@@ -667,7 +777,8 @@ public final class TSnackbar {
             // Now inflate our content. We need to do this manually rather than using an <include>
             // in the layout since older versions of the Android do not inflate includes with
             // the correct Context.
-            LayoutInflater.from(context).inflate(R.layout.tsnackbar_layout_include, this);
+            LayoutInflater.from(context)
+                    .inflate(R.layout.tsnackbar_layout_include, this);
 
             ViewCompat.setAccessibilityLiveRegion(this,
                     ViewCompat.ACCESSIBILITY_LIVE_REGION_POLITE);
@@ -701,7 +812,8 @@ public final class TSnackbar {
                     R.dimen.design_snackbar_padding_vertical_2lines);
             final int singleLineVPadding = getResources().getDimensionPixelSize(
                     R.dimen.design_snackbar_padding_vertical);
-            final boolean isMultiLine = mMessageView.getLayout().getLineCount() > 1;
+            final boolean isMultiLine = mMessageView.getLayout()
+                    .getLineCount() > 1;
 
             boolean remeasure = false;
             if (isMultiLine && mMaxInlineActionWidth > 0
@@ -724,25 +836,37 @@ public final class TSnackbar {
 
         void animateChildrenIn(int delay, int duration) {
             ViewCompat.setAlpha(mMessageView, 0f);
-            ViewCompat.animate(mMessageView).alpha(1f).setDuration(duration)
-                    .setStartDelay(delay).start();
+            ViewCompat.animate(mMessageView)
+                    .alpha(1f)
+                    .setDuration(duration)
+                    .setStartDelay(delay)
+                    .start();
 
             if (mActionView.getVisibility() == VISIBLE) {
                 ViewCompat.setAlpha(mActionView, 0f);
-                ViewCompat.animate(mActionView).alpha(1f).setDuration(duration)
-                        .setStartDelay(delay).start();
+                ViewCompat.animate(mActionView)
+                        .alpha(1f)
+                        .setDuration(duration)
+                        .setStartDelay(delay)
+                        .start();
             }
         }
 
         void animateChildrenOut(int delay, int duration) {
             ViewCompat.setAlpha(mMessageView, 1f);
-            ViewCompat.animate(mMessageView).alpha(0f).setDuration(duration)
-                    .setStartDelay(delay).start();
+            ViewCompat.animate(mMessageView)
+                    .alpha(0f)
+                    .setDuration(duration)
+                    .setStartDelay(delay)
+                    .start();
 
             if (mActionView.getVisibility() == VISIBLE) {
                 ViewCompat.setAlpha(mActionView, 1f);
-                ViewCompat.animate(mActionView).alpha(0f).setDuration(duration)
-                        .setStartDelay(delay).start();
+                ViewCompat.animate(mActionView)
+                        .alpha(0f)
+                        .setDuration(duration)
+                        .setStartDelay(delay)
+                        .start();
             }
         }
 
@@ -819,11 +943,13 @@ public final class TSnackbar {
             if (parent.isPointInChildBounds(child, (int) event.getX(), (int) event.getY())) {
                 switch (event.getActionMasked()) {
                     case MotionEvent.ACTION_DOWN:
-                        SnackbarManager.getInstance().cancelTimeout(mManagerCallback);
+                        SnackbarManager.getInstance()
+                                .cancelTimeout(mManagerCallback);
                         break;
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_CANCEL:
-                        SnackbarManager.getInstance().restoreTimeout(mManagerCallback);
+                        SnackbarManager.getInstance()
+                                .restoreTimeout(mManagerCallback);
                         break;
                 }
             }
