@@ -15,11 +15,8 @@ Icons support:
 
 ### Instalation:
 
-in your app build.gradle add
+I'm planning to add it to gradle again when I find some time, but until then, you'll have to do it manually.
 
-~~~~
-compile 'com.androidadvance:topsnackbar:0.0.9'
-~~~~
 
 
 
