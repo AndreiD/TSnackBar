@@ -42,31 +42,30 @@ snackbar.show();
 
 ##### Example 3: Give 'em everything you got:
 
-~~~~                
-                               TSnackbar snackbar = TSnackbar
-                                       .make(relative_layout_main, "Snacking with VectorDrawable", TSnackbar.LENGTH_LONG);
-                               snackbar.setActionTextColor(Color.WHITE);
-                               snackbar.setIconLeft(R.drawable.ic_android_green_24dp, 24);
-                               View snackbarView = snackbar.getView();
-                               snackbarView.setBackgroundColor(Color.parseColor("#CC00CC"));
-                               TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
-                               textView.setTextColor(Color.YELLOW);
-                               snackbar.show();
+~~~~   
+//vectordrawable
+TSnackbar snackbar = TSnackbar
+        .make(relative_layout_main, "Snacking with VectorDrawable", TSnackbar.LENGTH_LONG);
+        snackbar.setActionTextColor(Color.WHITE);
+        snackbar.setIconLeft(R.drawable.ic_android_green_24dp, 24);
+        View snackbarView = snackbar.getView();
+        snackbarView.setBackgroundColor(Color.parseColor("#CC00CC"));
+        TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+        textView.setTextColor(Color.YELLOW);
+        snackbar.show();
 
-
-                                TSnackbar snackbar = TSnackbar
-                                                     .make(relative_layout_main, "Snacking Left & Right", TSnackbar.LENGTH_LONG);
-                                                                             snackbar.setActionTextColor(Color.WHITE);
-                                                                             snackbar.setIconLeft(R.mipmap.ic_core, 24); //Size in dp - 24 is great!
-                                                                             snackbar.setIconRight(R.drawable.ic_android_green_24dp, 48); //Resize to bigger dp
-                                                                             snackbar.setIconPadding(8);
-                                                                             View snackbarView = snackbar.getView();
-                                                                             snackbarView.setBackgroundColor(Color.parseColor("#CC00CC"));
-                                                                             TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
-                                                                             textView.setTextColor(Color.YELLOW);
-                                                                             snackbar.show();
-
-
+  //left and right icon
+ TSnackbar snackbar = TSnackbar
+         .make(relative_layout_main, "Snacking Left & Right", TSnackbar.LENGTH_LONG);
+         snackbar.setActionTextColor(Color.WHITE);
+         snackbar.setIconLeft(R.mipmap.ic_core, 24); //Size in dp - 24 is great!
+         snackbar.setIconRight(R.drawable.ic_android_green_24dp, 48); //Resize to bigger dp
+         snackbar.setIconPadding(8);
+         View snackbarView = snackbar.getView();
+         snackbarView.setBackgroundColor(Color.parseColor("#CC00CC"));
+         TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+         textView.setTextColor(Color.YELLOW);
+         snackbar.show();
 ~~~~
 
 #### Troubleshooting 
