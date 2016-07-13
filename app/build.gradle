@@ -8,8 +8,8 @@ android {
         applicationId "com.androidadvance.tsnackbar"
         minSdkVersion 11
         targetSdkVersion 24
-        versionCode 8
-        versionName "1.8"
+        versionCode 10
+        versionName "2.0"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {

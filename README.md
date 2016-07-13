@@ -3,7 +3,7 @@ Top Snackbar
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-TSnackBar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2779)
 
-Show a Snackbar from the top.
+Show a Snackbar from the top. A big thanks to https://github.com/ejohansson and https://github.com/antoninovitale and everyone that took the time to make pull requests. You guys are heroes.
 
 
 ![alt text](https://raw.githubusercontent.com/AndreiD/TSnackBar/master/app/snackbar.gif "How the app looks 1")
@@ -13,14 +13,13 @@ Icons support:
 ![alt text](https://raw.githubusercontent.com/AndreiD/TSnackBar/master/app/with_icon.jpg "How the app looks 1")
 
 
-### Instalation:
+### Instalation (copy paste):
 
-I'm planning to add it to gradle again when I find some time, but until then, you'll have to do it manually.
+~~~~
+compile 'com.androidadvance:topsnackbar:1.0.0'
+~~~~
 
-
-
-
-### How to use it:
+### How to use it (a tutorial starting from **simple usage** to **complex one**):
 
 
 ##### Example 1: Simple usage:
@@ -41,30 +40,39 @@ textView.setTextColor(Color.YELLOW);
 snackbar.show();
 ~~~~
 
-##### Example 3: Custom colors & Action Button:              
+##### Example 3: Give 'em everything you got:
 
 ~~~~                
-TSnackbar snackbar = TSnackbar
-                        .make(findViewById(android.R.id.content), "Had a snack at Snackbar", TSnackbar.LENGTH_LONG)
-                        .setAction("Undo", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Log.d("Action Button", "onClick triggered");
-                            }
-                        });
-snackbar.setActionTextColor(Color.BLACK);
-snackbar.addIcon(R.mipmap.ic_core, 200); <<-- replace me!
-View snackbarView = snackbar.getView();
-snackbarView.setBackgroundColor(Color.parseColor("#00CC00"));
-TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
-textView.setTextColor(Color.YELLOW);
-snackbar.show();
+                               TSnackbar snackbar = TSnackbar
+                                       .make(relative_layout_main, "Snacking with VectorDrawable", TSnackbar.LENGTH_LONG);
+                               snackbar.setActionTextColor(Color.WHITE);
+                               snackbar.setIconLeft(R.drawable.ic_android_green_24dp, 24);
+                               View snackbarView = snackbar.getView();
+                               snackbarView.setBackgroundColor(Color.parseColor("#CC00CC"));
+                               TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+                               textView.setTextColor(Color.YELLOW);
+                               snackbar.show();
+
+
+                                TSnackbar snackbar = TSnackbar
+                                                     .make(relative_layout_main, "Snacking Left & Right", TSnackbar.LENGTH_LONG);
+                                                                             snackbar.setActionTextColor(Color.WHITE);
+                                                                             snackbar.setIconLeft(R.mipmap.ic_core, 24); //Size in dp - 24 is great!
+                                                                             snackbar.setIconRight(R.drawable.ic_android_green_24dp, 48); //Resize to bigger dp
+                                                                             snackbar.setIconPadding(8);
+                                                                             View snackbarView = snackbar.getView();
+                                                                             snackbarView.setBackgroundColor(Color.parseColor("#CC00CC"));
+                                                                             TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+                                                                             textView.setTextColor(Color.YELLOW);
+                                                                             snackbar.show();
+
+
 ~~~~
 
 #### Troubleshooting 
 
-1. Make sure you have the ***latest*** shit. At this moment: compileSdkVersion 23, targetSdkVersion 23, buildToolsVersion "23.0.1", compile 'com.android.support:appcompat-v7:23.1.0',   compile 'com.android.support:design:23.1.0' etc.
-2. Notice that, if you use ***findViewById(android.R.id.content)*** your snackbar might appear over your notifications bar (the one with the clock, battery). To fix it, replace it with your view, coordinator layout etc.
+1. Make sure you have the ***latest*** shit. At this moment: compileSdkVersion 99+, targetSdkVersion 99+, buildToolsVersion "99.0.1", compile 'com.android.support:appcompat-v7:99.1.0',   compile 'com.android.support:design:99.1.0' etc.
+2. Notice that, if you use ***findViewById(android.R.id.content)*** your tsnackbar might appear over your notifications bar (the one with the clock, battery). To fix it, replace it with your view, coordinator layout etc.
 3. If your TSnackbar appears with padding on the sides, make sure the parent view doesn't have padding.
 
 #### Updates, Questions, and Requests
@@ -72,8 +80,13 @@ snackbar.show();
 Ping me here :)
 
 
+#### Want to contribute ?
+
+You are a hero.
+
 #### TODO://
 
+* Persistent mode.
 * Waiting for your suggestions
 
 
