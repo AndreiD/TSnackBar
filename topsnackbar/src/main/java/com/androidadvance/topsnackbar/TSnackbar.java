@@ -221,6 +221,22 @@ public final class TSnackbar {
         return this;
     }
 
+  /**
+   * Overrides the max width of this snackbar's layout. This is typically not necessary; the snackbar
+   * width will be according to Google's Material guidelines. Specifically, the max width will be
+   * {@link com.androidadvance.topsnackbar.R.dimen.design_snackbar_max_width}.
+   *
+   * To allow the snackbar to have a width equal to the parent view, set a value <= 0.
+   *
+   * @param maxWidth  the max width in pixels
+   * @return this TSnackbar
+   */
+  public TSnackbar setMaxWidth(int maxWidth) {
+      mView.mMaxWidth = maxWidth;
+
+      return this;
+  }
+
     private Drawable fitDrawable(Drawable drawable, int sizePx) {
         if (drawable.getIntrinsicWidth() != sizePx || drawable.getIntrinsicHeight() != sizePx) {
 
