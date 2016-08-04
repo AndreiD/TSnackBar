@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         button_example_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TSnackbar.make(findViewById(R.id.coordinatorLayout), "Hello from VSnackBar 1", TSnackbar.LENGTH_LONG)
+                TSnackbar.make(relative_layout_main, "Hello from VSnackBar 1", TSnackbar.LENGTH_LONG)
                         .show();
             }
         });
@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 snackbar.setIconLeft(R.mipmap.ic_core, 24); //Size in dp - 24 is great!
                 snackbar.setIconRight(R.drawable.ic_android_green_24dp, 48); //Resize to bigger dp
                 snackbar.setIconPadding(8);
+                snackbar.setMaxWidth(3000);
                 View snackbarView = snackbar.getView();
                 snackbarView.setBackgroundColor(Color.parseColor("#CC00CC"));
                 TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);

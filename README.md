@@ -3,7 +3,7 @@ Top Snackbar
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-TSnackBar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2779)
 
-Show a Snackbar from the top. A big thanks to https://github.com/ejohansson and https://github.com/antoninovitale and everyone that took the time to make pull requests. You guys are heroes.
+Show a Snackbar from the top. A big thanks to https://github.com/ejohansson, https://github.com/antoninovitale, https://github.com/hansonchris and everyone that took the time to make pull requests. You guys are heroes.
 
 
 ![alt text](https://raw.githubusercontent.com/AndreiD/TSnackBar/master/app/snackbar.gif "How the app looks 1")
@@ -16,7 +16,7 @@ Icons support:
 ### Instalation (copy paste):
 
 ~~~~
-compile 'com.androidadvance:topsnackbar:1.0.0'
+compile 'com.androidadvance:topsnackbar:1.1.1'
 ~~~~
 
 ### How to use it (a tutorial starting from **simple usage** to **complex one**):
@@ -61,6 +61,7 @@ TSnackbar snackbar = TSnackbar
          snackbar.setIconLeft(R.mipmap.ic_core, 24); //Size in dp - 24 is great!
          snackbar.setIconRight(R.drawable.ic_android_green_24dp, 48); //Resize to bigger dp
          snackbar.setIconPadding(8);
+         snackbar.setMaxWidth(3000); //if you want fullsize on tablets
          View snackbarView = snackbar.getView();
          snackbarView.setBackgroundColor(Color.parseColor("#CC00CC"));
          TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
@@ -88,6 +89,9 @@ You are a hero.
 * Persistent mode.
 * Waiting for your suggestions
 
+#### Changes List
+
+1.1.1: added .setMaxWidth() method to make (ex: you want them to appear larger(fullwith) on tablets)
 
 #### You like this library ? Check:
 - https://github.com/AndreiD/surveylib - A very good looking survey library
