@@ -13,7 +13,7 @@ Icons support:
 ![alt text](https://raw.githubusercontent.com/AndreiD/TSnackBar/master/app/with_icon.jpg "How the app looks 1")
 
 
-### Instalation (copy paste):
+### Installation (app's build.gradle):
 
 ~~~~
 compile 'com.androidadvance:topsnackbar:1.1.1'
