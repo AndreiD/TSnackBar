@@ -94,6 +94,7 @@ You are a hero.
 1.1.1: added .setMaxWidth() method to make (ex: you want them to appear larger(fullwith) on tablets)
 
 #### You like this library ? Check:
+- https://github.com/AndreiD/SimpleChat - Simple Realtime Room Chat in Android.
 - https://github.com/AndreiD/surveylib - A very good looking survey library
 - https://github.com/AndreiD/UltimateAndroidAppTemplate The best android template app to start with
 
