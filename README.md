@@ -74,7 +74,7 @@ TSnackbar snackbar = TSnackbar
 1. Make sure you have the ***latest*** shit. At this moment: compileSdkVersion 99+, targetSdkVersion 99+, buildToolsVersion "99.0.1", compile 'com.android.support:appcompat-v7:99.1.0',   compile 'com.android.support:design:99.1.0' etc.
 2. Notice that, if you use ***findViewById(android.R.id.content)*** your tsnackbar might appear over your notifications bar (the one with the clock, battery). To fix it, replace it with your view, coordinator layout etc.
 3. If your TSnackbar appears with padding on the sides, make sure the parent view doesn't have padding.
-
+4. Note: remember to use CoordinatorLayout if you get some strange behaviour!
 #### Updates, Questions, and Requests
 
 Ping me here :)
