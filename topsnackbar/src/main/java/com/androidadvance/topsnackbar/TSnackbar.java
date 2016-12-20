@@ -101,6 +101,14 @@ public final class TSnackbar {
     private static final int MSG_SHOW = 0;
     private static final int MSG_DISMISS = 1;
 
+    @IntDef({POSITION_TOP, POSITION_BOTTOM})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Position {
+    }
+
+    public static final int POSITION_TOP = 0;
+    public static final int POSITION_BOTTOM = 1;
+
     static {
         sHandler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
             @Override
@@ -123,19 +131,35 @@ public final class TSnackbar {
     private final SnackbarLayout mView;
     private int mDuration;
     private Callback mCallback;
+    private final int mPosition;
 
-    private TSnackbar(ViewGroup parent) {
+    private TSnackbar(ViewGroup parent, @Position int position) {
         mParent = parent;
         mContext = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        mView = (SnackbarLayout) inflater.inflate(R.layout.tsnackbar_layout, mParent, false);
+        int layoutId = position == POSITION_TOP ? R.layout.tsnackbar_layout : R.layout.tsnackbar_layout_bottom;
+        mView = (SnackbarLayout) inflater.inflate(layoutId, mParent, false);
+        mPosition = position;
     }
 
     
     @NonNull
     public static TSnackbar make(@NonNull View view, @NonNull CharSequence text,
                                  @Duration int duration) {
-        TSnackbar snackbar = new TSnackbar(findSuitableParent(view));
+        return make(view, text, duration, POSITION_TOP);
+    }
+
+
+    @NonNull
+    public static TSnackbar make(@NonNull View view, @StringRes int resId, @Duration int duration) {
+        return make(view, view.getResources()
+                .getText(resId), duration, POSITION_TOP);
+    }
+
+    @NonNull
+    public static TSnackbar make(@NonNull View view, @NonNull CharSequence text,
+                                 @Duration int duration, @Position int position) {
+        TSnackbar snackbar = new TSnackbar(findSuitableParent(view), position);
         snackbar.setText(text);
         snackbar.setDuration(duration);
         return snackbar;
@@ -143,9 +167,9 @@ public final class TSnackbar {
 
     
     @NonNull
-    public static TSnackbar make(@NonNull View view, @StringRes int resId, @Duration int duration) {
-        return make(view, view.getResources()
-                .getText(resId), duration);
+    public static TSnackbar make(@NonNull View view, @StringRes int resId, @Duration int duration,
+                                 @Position int position) {
+        return make(view, view.getResources().getText(resId), duration, position);
     }
 
     private static ViewGroup findSuitableParent(View view) {
@@ -484,8 +508,9 @@ public final class TSnackbar {
     }
 
     private void animateViewIn() {
+        boolean top = mPosition == POSITION_TOP;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            ViewCompat.setTranslationY(mView, -mView.getHeight());
+            ViewCompat.setTranslationY(mView, top ? -mView.getHeight() : mView.getHeight());
             ViewCompat.animate(mView)
                     .translationY(0f)
                     .setInterpolator(com.androidadvance.topsnackbar.AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR)
@@ -509,7 +534,7 @@ public final class TSnackbar {
                     .start();
         } else {
             Animation anim = AnimationUtils.loadAnimation(mView.getContext(),
-                    R.anim.top_in);
+                    top ? R.anim.top_in : R.anim.bottom_in);
             anim.setInterpolator(com.androidadvance.topsnackbar.AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
             anim.setDuration(ANIMATION_DURATION);
             anim.setAnimationListener(new Animation.AnimationListener() {
@@ -535,9 +560,10 @@ public final class TSnackbar {
     }
 
     private void animateViewOut(final int event) {
+        boolean top = mPosition == POSITION_TOP;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             ViewCompat.animate(mView)
-                    .translationY(-mView.getHeight())
+                    .translationY(top ? -mView.getHeight() : mView.getHeight())
                     .setInterpolator(com.androidadvance.topsnackbar.AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR)
                     .setDuration(ANIMATION_DURATION)
                     .setListener(new ViewPropertyAnimatorListenerAdapter() {
@@ -553,7 +579,7 @@ public final class TSnackbar {
                     })
                     .start();
         } else {
-            Animation anim = AnimationUtils.loadAnimation(mView.getContext(), R.anim.top_out);
+            Animation anim = AnimationUtils.loadAnimation(mView.getContext(), top ? R.anim.top_out : R.anim.bottom_out);
             anim.setInterpolator(com.androidadvance.topsnackbar.AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
             anim.setDuration(ANIMATION_DURATION);
             anim.setAnimationListener(new Animation.AnimationListener() {

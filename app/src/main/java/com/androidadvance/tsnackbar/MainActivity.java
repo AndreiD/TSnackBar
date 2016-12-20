@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         Button button_example_4 = (Button) findViewById(R.id.button_example_4);
         Button button_example_5 = (Button) findViewById(R.id.button_example_5);
         Button button_example_6 = (Button) findViewById(R.id.button_example_6);
+        Button button_example_7 = (Button) findViewById(R.id.button_example_7);
+        Button button_example_8 = (Button) findViewById(R.id.button_example_8);
 
 
         relative_layout_main = (RelativeLayout) findViewById(R.id.relative_layout_main);
@@ -139,6 +141,36 @@ public class MainActivity extends AppCompatActivity {
                 snackbarView.setBackgroundColor(Color.parseColor("#CC00CC"));
                 TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
                 textView.setTextColor(Color.YELLOW);
+                snackbar.show();
+
+            }
+        });
+
+        button_example_7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TSnackbar.make(relative_layout_main, "Hello from VSnackBar 1", TSnackbar.LENGTH_LONG, TSnackbar.POSITION_BOTTOM)
+                         .show();
+            }
+        });
+
+        button_example_8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TSnackbar snackbar = TSnackbar
+                        .make(relative_layout_main, "Had a snack at Snackbar", TSnackbar.LENGTH_LONG, TSnackbar.POSITION_BOTTOM)
+                        .setAction("Undo", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Log.d("Action Button", "onClick triggered");
+                            }
+                        });
+                snackbar.setActionTextColor(Color.LTGRAY);
+                snackbar.addIcon(R.mipmap.ic_core, 200);
+                View snackbarView = snackbar.getView();
+                snackbarView.setBackgroundColor(Color.parseColor("#555555"));
+                TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+                textView.setTextColor(Color.WHITE);
                 snackbar.show();
 
             }
