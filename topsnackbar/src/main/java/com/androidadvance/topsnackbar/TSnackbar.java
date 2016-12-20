@@ -17,10 +17,10 @@ import android.os.Message;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.SwipeDismissBehavior;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
@@ -81,6 +81,7 @@ public final class TSnackbar {
 
     
     @IntDef({LENGTH_INDEFINITE, LENGTH_SHORT, LENGTH_LONG})
+    @IntRange(from = 1)
     @Retention(RetentionPolicy.SOURCE)
     public @interface Duration {
     }

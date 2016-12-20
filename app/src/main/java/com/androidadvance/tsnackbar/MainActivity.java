@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         button_example_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TSnackbar.make(relative_layout_main, "Hello from VSnackBar 1", TSnackbar.LENGTH_LONG)
+                TSnackbar.make(relative_layout_main, "Hello from VSnackBar 1", 10000)
                         .show();
             }
         });
