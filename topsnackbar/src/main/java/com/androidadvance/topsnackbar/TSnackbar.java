@@ -20,7 +20,6 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.SwipeDismissBehavior;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
@@ -195,8 +194,12 @@ public final class TSnackbar {
 
 
     public TSnackbar setIconLeft(@DrawableRes int drawableRes, float sizeDp) {
-        final TextView tv = mView.getMessageView();
         Drawable drawable = ContextCompat.getDrawable(mContext, drawableRes);
+        return setIconLeft(drawable, sizeDp);
+    }
+
+    public TSnackbar setIconLeft(Drawable drawable, float sizeDp) {
+        final TextView tv = mView.getMessageView();
         if (drawable != null) {
             drawable = fitDrawable(drawable, (int) convertDpToPixel(sizeDp, mContext));
         } else {
@@ -209,8 +212,12 @@ public final class TSnackbar {
 
 
     public TSnackbar setIconRight(@DrawableRes int drawableRes, float sizeDp) {
-        final TextView tv = mView.getMessageView();
         Drawable drawable = ContextCompat.getDrawable(mContext, drawableRes);
+        return setIconRight(drawable, sizeDp);
+    }
+
+    public TSnackbar setIconRight(Drawable drawable, float sizeDp) {
+        final TextView tv = mView.getMessageView();
         if (drawable != null) {
             drawable = fitDrawable(drawable, (int) convertDpToPixel(sizeDp, mContext));
         } else {
