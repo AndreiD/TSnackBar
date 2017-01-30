@@ -1,104 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:id="@+id/coordinatorLayout"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 tools:context=".MainActivity">
 
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
 
         <RelativeLayout
-            android:layout_width="match_parent"
             android:id="@+id/relative_layout_main"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+                android:layout_alignParentStart="true"
+                android:orientation="vertical">
 
                 <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:gravity="bottom"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="example 1"
-                    android:id="@+id/button_example_1"
-                    android:layout_weight="1" />
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="example 2"
-                    android:id="@+id/button_example_2"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:gravity="bottom"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true">
+                    android:layout_alignParentStart="true"
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/button_example_1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="example 3"
+                        android:layout_weight="1"
+                        android:text="example 1"/>
+
+                    <Button
+                        android:id="@+id/button_example_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="example 2"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
+
+                    <Button
                         android:id="@+id/button_example_3"
-                        android:layout_weight="1" />
-
-                    <Button
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="example 4"
+                        android:layout_weight="1"
+                        android:text="example 3"/>
+
+                    <Button
                         android:id="@+id/button_example_4"
-                        android:layout_weight="1" />
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="example 4"/>
                 </LinearLayout>
 
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:gravity="bottom"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true">
+                    android:layout_alignParentStart="true"
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
 
                     <Button
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Vector Icon"
                         android:id="@+id/button_example_5"
-                        android:layout_weight="1" />
-
-                    <Button
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Icon Left &amp; Right"
+                        android:layout_weight="1"
+                        android:text="Vector Icon"/>
+
+                    <Button
                         android:id="@+id/button_example_6"
-                        android:layout_weight="1" />
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Icon Left &amp; Right"/>
                 </LinearLayout>
+
+                <Button android:id="@+id/button_example_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Try Toolbar Example!"/>
             </LinearLayout>
 
         </RelativeLayout>
