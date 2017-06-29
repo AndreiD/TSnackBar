@@ -20,7 +20,6 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.SwipeDismissBehavior;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
@@ -291,6 +290,11 @@ public final class TSnackbar {
     
     @NonNull
     public TSnackbar setAction(CharSequence text, final View.OnClickListener listener) {
+        return setAction(text, true, listener);
+    }
+
+    @NonNull
+    public TSnackbar setAction(CharSequence text, final boolean shouldDismissOnClick, final View.OnClickListener listener) {
         final TextView tv = mView.getActionView();
 
         if (TextUtils.isEmpty(text) || listener == null) {
@@ -303,8 +307,10 @@ public final class TSnackbar {
                 @Override
                 public void onClick(View view) {
                     listener.onClick(view);
-                    
-                    dispatchDismiss(Callback.DISMISS_EVENT_ACTION);
+
+                    if(shouldDismissOnClick) {
+                        dispatchDismiss(Callback.DISMISS_EVENT_ACTION);
+                    }
                 }
             });
         }
