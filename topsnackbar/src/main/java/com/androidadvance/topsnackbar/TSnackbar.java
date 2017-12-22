@@ -237,6 +237,21 @@ public final class TSnackbar {
       return this;
   }
 
+    /**
+     * Overrides the max inline action width  of this snackbar's layout.
+     *
+     * To allow the snackbar to have an inline action width equal to the parent view, set a value <= 0.
+     *
+     * @param maxInlineActionWidth the max inline action width in pixels
+     * @return this TSnackbar
+     */
+    public TSnackbar setMaxInlineActionWidth(int maxInlineActionWidth) {
+        mView.mMaxInlineActionWidth = maxInlineActionWidth;
+
+        return this;
+    }
+
+
     private Drawable fitDrawable(Drawable drawable, int sizePx) {
         if (drawable.getIntrinsicWidth() != sizePx || drawable.getIntrinsicHeight() != sizePx) {
 
@@ -329,6 +344,7 @@ public final class TSnackbar {
         if(actionView.getChildCount() > 0)
             actionView.removeAllViews();
 
+        actionView.setVisibility(View.VISIBLE);
         actionView.addView(view);
     }
 
@@ -359,6 +375,7 @@ public final class TSnackbar {
         if(action == null)
             return this;
 
+        actionView.setVisibility(View.VISIBLE);
         actionView.addView(action);
         final TextView tv = action;
 
@@ -730,8 +747,10 @@ public final class TSnackbar {
             super(context, attrs);
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SnackbarLayout);
             mMaxWidth = a.getDimensionPixelSize(R.styleable.SnackbarLayout_android_maxWidth, -1);
-            mMaxInlineActionWidth = a.getDimensionPixelSize(
-                    R.styleable.SnackbarLayout_maxActionInlineWidth, -1);
+
+            mMaxInlineActionWidth = -1; // We can have more than one Actions, set MaxInlineActionWidth to indefinite
+            //mMaxInlineActionWidth = a.getDimensionPixelSize(R.styleable.SnackbarLayout_maxActionInlineWidth, -1);
+
             if (a.hasValue(R.styleable.SnackbarLayout_elevation)) {
                 ViewCompat.setElevation(this, a.getDimensionPixelSize(
                         R.styleable.SnackbarLayout_elevation, 0));
@@ -799,6 +818,7 @@ public final class TSnackbar {
             boolean remeasure = false;
             if (isMultiLine && mMaxInlineActionWidth > 0
                     && mActionView.getMeasuredWidth() > mMaxInlineActionWidth) {
+
                 if (updateViewsWithinLayout(VERTICAL, multiLineVPadding,
                         multiLineVPadding - singleLineVPadding)) {
                     remeasure = true;
@@ -809,6 +829,7 @@ public final class TSnackbar {
                     remeasure = true;
                 }
             }
+
 
             if (remeasure) {
                 super.onMeasure(widthMeasureSpec, heightMeasureSpec);
