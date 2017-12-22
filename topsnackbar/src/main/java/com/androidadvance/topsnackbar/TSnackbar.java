@@ -748,7 +748,7 @@ public final class TSnackbar {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SnackbarLayout);
             mMaxWidth = a.getDimensionPixelSize(R.styleable.SnackbarLayout_android_maxWidth, -1);
 
-            mMaxInlineActionWidth = -1; // We can have more than one Actions, set MaxInlineActionWidth to indefinite
+            mMaxInlineActionWidth = -1; // We now can have more than one Actions set to indefinite
             //mMaxInlineActionWidth = a.getDimensionPixelSize(R.styleable.SnackbarLayout_maxActionInlineWidth, -1);
 
             if (a.hasValue(R.styleable.SnackbarLayout_elevation)) {
