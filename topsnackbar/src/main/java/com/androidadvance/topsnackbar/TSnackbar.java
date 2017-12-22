@@ -302,21 +302,23 @@ public final class TSnackbar {
         return action;
     }
 
+    /**
+     * Set a custom view resource to be on the actions side of the Snackbar.
+     *
+     * @param layoutResId The Resource ID to be inflated.
+     */
     public void setView (int layoutResId) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(layoutResId,null);
 
-        if(view != null) {
-            final LinearLayout actionView = mView.getActionHolderView();
-
-            //Need to make sure this is the only view visible
-            if(actionView.getChildCount() > 0)
-                actionView.removeAllViews();
-
-            actionView.addView(view);
-        }
+        setView(view);
     }
 
+    /**
+     * Set a custom view to be on the actions side of the Snackbar.
+     *
+     * @param view The view to be inflated.
+     */
     public void setView (View view) {
         if(view == null)
             return;
@@ -339,8 +341,19 @@ public final class TSnackbar {
     public TSnackbar setAction(CharSequence text, final View.OnClickListener listener)
     {
         final LinearLayout actionView = mView.getActionHolderView();
-        if(actionView.getChildCount() >= 3) //Limit 3 actions at most. If more actions needed inflate a custom view
+        int childCount = actionView.getChildCount();
+
+        if(childCount >= 3) //Limit 3 actions at most. If more actions needed inflate a custom view
             return this;
+        else{ //Check and remove any view other than button. Only buttons should be visible when calling setAction
+            for (int i=0; i < childCount; i++){
+                if (!(actionView.getChildAt(i) instanceof Button)) {
+                    actionView.removeViewAt(i);
+                    childCount--;
+                    i--;
+                }
+            }
+        }
 
         Button action = inflateAction();
         if(action == null)
