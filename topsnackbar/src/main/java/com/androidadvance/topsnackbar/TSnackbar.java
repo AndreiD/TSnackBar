@@ -308,6 +308,11 @@ public final class TSnackbar {
 
         if(view != null) {
             final LinearLayout actionView = mView.getActionHolderView();
+
+            //Need to make sure this is the only view visible
+            if(actionView.getChildCount() > 0)
+                actionView.removeAllViews();
+
             actionView.addView(view);
         }
     }
@@ -317,6 +322,11 @@ public final class TSnackbar {
             return;
 
         final LinearLayout actionView = mView.getActionHolderView();
+
+        //Need to make sure this is the only view visible
+        if(actionView.getChildCount() > 0)
+            actionView.removeAllViews();
+
         actionView.addView(view);
     }
 

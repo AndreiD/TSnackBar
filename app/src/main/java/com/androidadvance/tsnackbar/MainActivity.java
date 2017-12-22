@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         button_example_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
                 TSnackbar snackbar = TSnackbar
                         .make(relative_layout_main, "Had a snack at Snackbar", TSnackbar.LENGTH_LONG)
                         .setAction("Undo", new View.OnClickListener() {
