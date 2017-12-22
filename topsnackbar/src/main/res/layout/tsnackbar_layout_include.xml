@@ -24,27 +24,17 @@
         android:paddingTop="@dimen/design_snackbar_padding_vertical"
         android:paddingBottom="@dimen/design_snackbar_padding_vertical"
         android:paddingLeft="@dimen/design_snackbar_padding_horizontal"
-        android:paddingRight="@dimen/design_snackbar_padding_horizontal"
         android:textAppearance="@style/TextAppearance.Design.Snackbar.Message"
         android:maxLines="@integer/design_snackbar_text_max_lines"
         android:gravity="center_vertical"
         android:layout_gravity="center_vertical|start"
         tools:text="Text Goes Here"
         android:ellipsize="end"/>
-    <Button
-        android:id="@+id/snackbar_action"
+    <LinearLayout
+        android:id="@+id/snackbar_actions_holder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/design_snackbar_extra_spacing_horizontal"
-        android:layout_marginStart="@dimen/design_snackbar_extra_spacing_horizontal"
         android:layout_gravity="center_vertical|end"
-        android:paddingTop="@dimen/design_snackbar_padding_vertical"
-        android:paddingBottom="@dimen/design_snackbar_padding_vertical"
-        android:paddingLeft="@dimen/design_snackbar_padding_horizontal"
-        android:paddingRight="@dimen/design_snackbar_padding_horizontal"
-        android:visibility="gone"
-        android:textColor="?attr/colorAccent"
-        style="?attr/borderlessButtonStyle"
-        tools:visibility="visible"
-        tools:text="Action"/>
+        android:orientation="horizontal">
+    </LinearLayout>
 </merge>
