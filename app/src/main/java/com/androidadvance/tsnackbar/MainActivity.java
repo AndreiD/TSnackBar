@@ -188,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
                 final TSnackbar snackbar = TSnackbar
                         .make(relative_layout_main, "Had a snack at Snackbar", TSnackbar.LENGTH_INDEFINITE);
 
-
                 DemoCustomView demoView = new DemoCustomView(MainActivity.this);
                 demoView.CloseButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
@@ -197,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                snackbar.setView(demoView);
+                snackbar.setView(demoView); // Inflate a custom view to the Actions side of the Snackbar
                 snackbar.setCancelable(false); // Will not dismiss snackbar automatically when tapping on an action. Explicit dismiss required.
 
                 snackbar.addIcon(R.mipmap.ic_core, 200);
