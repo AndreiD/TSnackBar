@@ -123,6 +123,7 @@ public final class TSnackbar {
     private final SnackbarLayout mView;
     private int mDuration;
     private Callback mCallback;
+    private boolean Cancelable = true;
 
     private TSnackbar(ViewGroup parent) {
         mParent = parent;
@@ -236,6 +237,21 @@ public final class TSnackbar {
       return this;
   }
 
+    /**
+     * Overrides the max inline action width  of this snackbar's layout.
+     *
+     * To allow the snackbar to have an inline action width equal to the parent view, set a value <= 0.
+     *
+     * @param maxInlineActionWidth the max inline action width in pixels
+     * @return this TSnackbar
+     */
+    public TSnackbar setMaxInlineActionWidth(int maxInlineActionWidth) {
+        mView.mMaxInlineActionWidth = maxInlineActionWidth;
+
+        return this;
+    }
+
+
     private Drawable fitDrawable(Drawable drawable, int sizePx) {
         if (drawable.getIntrinsicWidth() != sizePx || drawable.getIntrinsicHeight() != sizePx) {
 
@@ -281,17 +297,87 @@ public final class TSnackbar {
         }
     }
 
+    /**
+     * Set the snackbar to auto dismiss or not after selecting action
+     *
+     * @param flag  auto dismiss flag
+     */
+    public void setCancelable(boolean flag) {
+        Cancelable = flag;
+    }
 
-    
+    /**
+     * Inflate a new action (Button)
+     *
+     * @return The new action
+     */
+    private Button inflateAction() {
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        Button action = (Button) inflater.inflate(R.layout.tsbackbar_layout_action,null);
+        return action;
+    }
+
+    /**
+     * Set a custom view resource to be on the actions side of the Snackbar.
+     *
+     * @param layoutResId The Resource ID to be inflated.
+     */
+    public void setView (int layoutResId) {
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        View view = inflater.inflate(layoutResId,null);
+
+        setView(view);
+    }
+
+    /**
+     * Set a custom view to be on the actions side of the Snackbar.
+     *
+     * @param view The view to be inflated.
+     */
+    public void setView (View view) {
+        if(view == null)
+            return;
+
+        final LinearLayout actionView = mView.getActionHolderView();
+
+        //Need to make sure this is the only view visible
+        if(actionView.getChildCount() > 0)
+            actionView.removeAllViews();
+
+        actionView.setVisibility(View.VISIBLE);
+        actionView.addView(view);
+    }
+
     @NonNull
     public TSnackbar setAction(@StringRes int resId, View.OnClickListener listener) {
         return setAction(mContext.getText(resId), listener);
     }
 
-    
     @NonNull
-    public TSnackbar setAction(CharSequence text, final View.OnClickListener listener) {
-        final TextView tv = mView.getActionView();
+    public TSnackbar setAction(CharSequence text, final View.OnClickListener listener)
+    {
+        final LinearLayout actionView = mView.getActionHolderView();
+        int childCount = actionView.getChildCount();
+
+        if(childCount >= 3) //Limit 3 actions at most. If more actions needed inflate a custom view
+            return this;
+        else{ //Check and remove any view other than button. Only buttons should be visible when calling setAction
+            for (int i=0; i < childCount; i++){
+                if (!(actionView.getChildAt(i) instanceof Button)) {
+                    actionView.removeViewAt(i);
+                    childCount--;
+                    i--;
+                }
+            }
+        }
+
+        Button action = inflateAction();
+        if(action == null)
+            return this;
+
+        actionView.setVisibility(View.VISIBLE);
+        actionView.addView(action);
+        final TextView tv = action;
 
         if (TextUtils.isEmpty(text) || listener == null) {
             tv.setVisibility(View.GONE);
@@ -303,28 +389,47 @@ public final class TSnackbar {
                 @Override
                 public void onClick(View view) {
                     listener.onClick(view);
-                    
-                    dispatchDismiss(Callback.DISMISS_EVENT_ACTION);
+
+                    if(Cancelable)
+                        dispatchDismiss(Callback.DISMISS_EVENT_ACTION);
                 }
             });
         }
         return this;
     }
 
-    
     @NonNull
-    public TSnackbar setActionTextColor(ColorStateList colors) {
-        final TextView tv = mView.getActionView();
+    public TSnackbar setActionTextColor(ColorStateList colors, int index) {
+
+        final Button action = mView.getActionView(index);
+        if(action == null)
+            return this;
+
+        final TextView tv = action;
         tv.setTextColor(colors);
         return this;
     }
 
-    
     @NonNull
-    public TSnackbar setActionTextColor(@ColorInt int color) {
-        final TextView tv = mView.getActionView();
+    public TSnackbar setActionTextColor(ColorStateList colors) {
+        return setActionTextColor(colors,0);
+    }
+
+    @NonNull
+    public TSnackbar setActionTextColor(@ColorInt int color, int index) {
+
+        final Button action = mView.getActionView(index);
+        if(action == null)
+            return this;
+
+        final TextView tv = action;
         tv.setTextColor(color);
         return this;
+    }
+
+    @NonNull
+    public TSnackbar setActionTextColor(@ColorInt int color) {
+        return setActionTextColor(color,0);
     }
 
     
@@ -616,7 +721,7 @@ public final class TSnackbar {
     
     public static class SnackbarLayout extends LinearLayout {
         private TextView mMessageView;
-        private Button mActionView;
+        private LinearLayout mActionView;
 
         private int mMaxWidth;
         private int mMaxInlineActionWidth;
@@ -642,8 +747,10 @@ public final class TSnackbar {
             super(context, attrs);
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SnackbarLayout);
             mMaxWidth = a.getDimensionPixelSize(R.styleable.SnackbarLayout_android_maxWidth, -1);
-            mMaxInlineActionWidth = a.getDimensionPixelSize(
-                    R.styleable.SnackbarLayout_maxActionInlineWidth, -1);
+
+            mMaxInlineActionWidth = -1; // We now can have more than one Actions set to indefinite
+            //mMaxInlineActionWidth = a.getDimensionPixelSize(R.styleable.SnackbarLayout_maxActionInlineWidth, -1);
+
             if (a.hasValue(R.styleable.SnackbarLayout_elevation)) {
                 ViewCompat.setElevation(this, a.getDimensionPixelSize(
                         R.styleable.SnackbarLayout_elevation, 0));
@@ -666,17 +773,32 @@ public final class TSnackbar {
         protected void onFinishInflate() {
             super.onFinishInflate();
             mMessageView = (TextView) findViewById(R.id.snackbar_text);
-            mActionView = (Button) findViewById(R.id.snackbar_action);
+            //mActionView = (Button) findViewById(R.id.snackbar_action);
+            mActionView = (LinearLayout)findViewById(R.id.snackbar_actions_holder);
         }
 
         TextView getMessageView() {
             return mMessageView;
         }
 
-        Button getActionView() {
+        LinearLayout getActionHolderView() {
             return mActionView;
         }
 
+        Button getActionView()
+        {
+            return getActionView(0);
+        }
+
+        Button getActionView(int index)
+        {
+            final LinearLayout actionHolderView = getActionHolderView();
+            int childCount = actionHolderView.getChildCount();
+            if(childCount > 0)
+                return  (Button)actionHolderView.getChildAt(index);
+
+            return null;
+        }
         @Override
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -696,6 +818,7 @@ public final class TSnackbar {
             boolean remeasure = false;
             if (isMultiLine && mMaxInlineActionWidth > 0
                     && mActionView.getMeasuredWidth() > mMaxInlineActionWidth) {
+
                 if (updateViewsWithinLayout(VERTICAL, multiLineVPadding,
                         multiLineVPadding - singleLineVPadding)) {
                     remeasure = true;
@@ -706,6 +829,7 @@ public final class TSnackbar {
                     remeasure = true;
                 }
             }
+
 
             if (remeasure) {
                 super.onMeasure(widthMeasureSpec, heightMeasureSpec);

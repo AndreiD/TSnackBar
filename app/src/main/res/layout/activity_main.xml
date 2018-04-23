@@ -99,6 +99,30 @@
                         android:id="@+id/button_example_6"
                         android:layout_weight="1" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:gravity="bottom"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Multiple Actions"
+                        android:id="@+id/button_example_7"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Custom View"
+                        android:id="@+id/button_example_8"
+                        android:layout_weight="1" />
+                </LinearLayout>
             </LinearLayout>
 
         </RelativeLayout>
