@@ -99,6 +99,11 @@ You are a hero.
 - https://github.com/AndreiD/UltimateAndroidAppTemplate The best android template app to start with
 
 
+## Stargazers over time
+
+[![Stargazers over time](https://starcharts.herokuapp.com/AndreiD/TSnackBar.svg)](https://starcharts.herokuapp.com/AndreiD/TSnackBar)
+      
+      
 #### License
 
 ~~~~
