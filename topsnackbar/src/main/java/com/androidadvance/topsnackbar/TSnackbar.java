@@ -298,6 +298,11 @@ public final class TSnackbar {
 
     @NonNull
     public TSnackbar setAction(CharSequence text, final View.OnClickListener listener) {
+        return setAction(text, true, listener);
+    }
+
+    @NonNull
+    public TSnackbar setAction(CharSequence text, final boolean shouldDismissOnClick, final View.OnClickListener listener) {
         final TextView tv = mView.getActionView();
 
         if (TextUtils.isEmpty(text) || listener == null) {
@@ -310,8 +315,9 @@ public final class TSnackbar {
                 @Override
                 public void onClick(View view) {
                     listener.onClick(view);
-
-                    dispatchDismiss(Callback.DISMISS_EVENT_ACTION);
+                    if(shouldDismissOnClick) {
+                        dispatchDismiss(Callback.DISMISS_EVENT_ACTION);
+                    }
                 }
             });
         }
