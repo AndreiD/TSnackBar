@@ -742,7 +742,7 @@ public final class TSnackbar {
         @Override
         protected void onLayout(boolean changed, int l, int t, int r, int b) {
             super.onLayout(changed, l, t, r, b);
-            if (changed && mOnLayoutChangeListener != null) {
+            if (mOnLayoutChangeListener != null) {
                 mOnLayoutChangeListener.onLayoutChange(this, l, t, r, b);
             }
         }
