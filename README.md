@@ -15,8 +15,8 @@ Icons support:
 
 ### Installation (app's build.gradle):
 
-~~~~
-compile 'com.androidadvance:topsnackbar:1.1.1'
+~~~~ groovy
+compile 'com.androidadvance:topsnackbar:$version'
 ~~~~
 
 ### How to use it (a tutorial starting from **simple usage** to **complex one**):
@@ -24,13 +24,13 @@ compile 'com.androidadvance:topsnackbar:1.1.1'
 
 ##### Example 1: Simple usage:
 
-~~~~
+~~~~ java
 TSnackbar.make(findViewById(android.R.id.content),"Hello from TSnackBar.",TSnackbar.LENGTH_LONG).show();
 ~~~~
 
 ##### Example 2: Custom colors:
 
-~~~~
+~~~~  java
 TSnackbar snackbar = TSnackbar.make(findViewById(android.R.id.content), "A Snackbar is a lightweight material design method for providing feedback to a user, while optionally providing an action to the user.", TSnackbar.LENGTH_LONG);
 snackbar.setActionTextColor(Color.WHITE);
 View snackbarView = snackbar.getView();
@@ -42,7 +42,7 @@ snackbar.show();
 
 ##### Example 3: Give 'em everything you got:
 
-~~~~   
+~~~~ java
 //vectordrawable
 TSnackbar snackbar = TSnackbar
         .make(relative_layout_main, "Snacking with VectorDrawable", TSnackbar.LENGTH_LONG);
