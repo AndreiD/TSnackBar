@@ -14,16 +14,16 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.SwipeDismissBehavior;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import com.google.android.material.behavior.SwipeDismissBehavior;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewPropertyAnimatorListenerAdapter;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -150,7 +150,7 @@ public final class TSnackbar {
                 } else {
                     fallback = (ViewGroup) view;
                 }
-            } else if (view instanceof android.support.v7.widget.Toolbar || view instanceof Toolbar) {
+            } else if (view instanceof androidx.appcompat.widget.Toolbar || view instanceof Toolbar) {
                 /*
                     If we return the toolbar here, the toast will be attached inside the toolbar.
                     So we need to find a some sibling ViewGroup to the toolbar that comes after the toolbar
