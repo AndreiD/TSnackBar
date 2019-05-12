@@ -2,12 +2,11 @@ apply plugin: 'com.android.library'
 
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 28
 
     defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 25
+        minSdkVersion 14
+        targetSdkVersion 28
         versionCode 10
         versionName "1.9"
     }
@@ -17,8 +16,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
 
+    lintOptions {
+        warning 'NewApi'
+    }
+
+}
 
 
 ext {
@@ -54,8 +57,8 @@ configurations {
 }
 
 dependencies {
-    compile 'com.android.support:support-annotations:25.1.0'
-    javadocDeps 'com.android.support:support-annotations:25.1.0'
-    compile 'com.android.support:design:25.1.0'
-    compile 'com.android.support:appcompat-v7:25.1.0'
+    implementation 'androidx.annotation:annotation:1.0.2'
+    javadocDeps 'androidx.annotation:annotation:1.0.2'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
 }
