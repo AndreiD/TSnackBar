@@ -1,6 +1,8 @@
 Top Snackbar
 ==========================
 
+## Looking for a maintainer! Write in "issues" if you want to take over this project
+
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-TSnackBar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2779) [ ![Download](https://api.bintray.com/packages/andreid/maven/topsnackbar/images/download.svg) ](https://bintray.com/andreid/maven/topsnackbar/_latestVersion)
 
 Show a Snackbar from the top. A big thanks to https://github.com/ejohansson, https://github.com/antoninovitale, https://github.com/hansonchris and everyone that took the time to make pull requests. 
