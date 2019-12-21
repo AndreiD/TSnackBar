@@ -1,7 +1,7 @@
 Top Snackbar
 ==========================
 
-## Sadly, I don't have time to maintain this. If you'd like to be a maintainer, drop me a message in an issue !!
+## Sadly, I don't have time to maintain this. If you'd like to be a maintainer, drop me a message in an issue
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-TSnackBar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2779) [ ![Download](https://api.bintray.com/packages/andreid/maven/topsnackbar/images/download.svg) ](https://bintray.com/andreid/maven/topsnackbar/_latestVersion)
 
