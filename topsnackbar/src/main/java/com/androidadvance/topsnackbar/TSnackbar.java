@@ -14,16 +14,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import androidx.annotation.ColorInt;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.IntDef;
-import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import com.google.android.material.behavior.SwipeDismissBehavior;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.ViewPropertyAnimatorListenerAdapter;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -32,13 +22,24 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toolbar;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewPropertyAnimatorListenerAdapter;
+
+import com.google.android.material.behavior.SwipeDismissBehavior;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -162,7 +163,7 @@ public final class TSnackbar {
                     // check if there's something else beside toolbar
                     if (parent.getChildCount() > 1) {
                         int childrenCnt = parent.getChildCount();
-                        int toolbarIdx = 0;
+                        int toolbarIdx;
                         for (int i = 0; i < childrenCnt; i++) {
                             // find the index of toolbar in the layout (most likely 0, but who knows)
                             if (parent.getChildAt(i) == view) {
@@ -194,12 +195,14 @@ public final class TSnackbar {
         return fallback;
     }
 
+    /**
+     * @deprecated Use {@link #setIconLeft(int, float)}
+     */
     @Deprecated
     public TSnackbar addIcon(int resource_id, int size) {
         final TextView tv = mView.getMessageView();
 
-        tv.setCompoundDrawablesWithIntrinsicBounds(new BitmapDrawable(Bitmap.createScaledBitmap(((BitmapDrawable) (mContext.getResources()
-                .getDrawable(resource_id))).getBitmap(), size, size, true)), null, null, null);
+        tv.setCompoundDrawablesWithIntrinsicBounds(new BitmapDrawable(mContext.getResources(),Bitmap.createScaledBitmap(((BitmapDrawable) (ResourcesCompat.getDrawable(mContext.getResources(),resource_id,null))).getBitmap(), size, size, true)), null, null, null);
 
         return this;
     }
@@ -315,7 +318,7 @@ public final class TSnackbar {
                 @Override
                 public void onClick(View view) {
                     listener.onClick(view);
-                    if(shouldDismissOnClick) {
+                    if (shouldDismissOnClick) {
                         dispatchDismiss(Callback.DISMISS_EVENT_ACTION);
                     }
                 }
@@ -479,8 +482,7 @@ public final class TSnackbar {
     }
 
     private void animateViewIn() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            ViewCompat.setTranslationY(mView, -mView.getHeight());
+            mView.setTranslationY(-mView.getHeight());
             ViewCompat.animate(mView)
                     .translationY(0f)
                     .setInterpolator(com.androidadvance.topsnackbar.AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR)
@@ -502,35 +504,10 @@ public final class TSnackbar {
                         }
                     })
                     .start();
-        } else {
-            Animation anim = AnimationUtils.loadAnimation(mView.getContext(),
-                    R.anim.top_in);
-            anim.setInterpolator(com.androidadvance.topsnackbar.AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
-            anim.setDuration(ANIMATION_DURATION);
-            anim.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    if (mCallback != null) {
-                        mCallback.onShown(TSnackbar.this);
-                    }
-                    SnackbarManager.getInstance()
-                            .onShown(mManagerCallback);
-                }
 
-                @Override
-                public void onAnimationStart(Animation animation) {
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                }
-            });
-            mView.startAnimation(anim);
-        }
     }
 
     private void animateViewOut(final int event) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             ViewCompat.animate(mView)
                     .translationY(-mView.getHeight())
                     .setInterpolator(com.androidadvance.topsnackbar.AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR)
@@ -547,26 +524,7 @@ public final class TSnackbar {
                         }
                     })
                     .start();
-        } else {
-            Animation anim = AnimationUtils.loadAnimation(mView.getContext(), R.anim.top_out);
-            anim.setInterpolator(com.androidadvance.topsnackbar.AnimationUtils.FAST_OUT_SLOW_IN_INTERPOLATOR);
-            anim.setDuration(ANIMATION_DURATION);
-            anim.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    onViewHidden(event);
-                }
 
-                @Override
-                public void onAnimationStart(Animation animation) {
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                }
-            });
-            mView.startAnimation(anim);
-        }
     }
 
     final void hideView(int event) {
@@ -612,7 +570,7 @@ public final class TSnackbar {
         private Button mActionView;
 
         private int mMaxWidth;
-        private int mMaxInlineActionWidth;
+        private final int mMaxInlineActionWidth;
 
         interface OnLayoutChangeListener {
             void onLayoutChange(View view, int left, int top, int right, int bottom);
@@ -656,8 +614,8 @@ public final class TSnackbar {
         @Override
         protected void onFinishInflate() {
             super.onFinishInflate();
-            mMessageView = (TextView) findViewById(R.id.snackbar_text);
-            mActionView = (Button) findViewById(R.id.snackbar_action);
+            mMessageView = findViewById(R.id.snackbar_text);
+            mActionView = findViewById(R.id.snackbar_action);
         }
 
         TextView getMessageView() {
@@ -704,7 +662,7 @@ public final class TSnackbar {
         }
 
         void animateChildrenIn(int delay, int duration) {
-            ViewCompat.setAlpha(mMessageView, 0f);
+            mMessageView.setAlpha(0f);
             ViewCompat.animate(mMessageView)
                     .alpha(1f)
                     .setDuration(duration)
@@ -712,7 +670,7 @@ public final class TSnackbar {
                     .start();
 
             if (mActionView.getVisibility() == VISIBLE) {
-                ViewCompat.setAlpha(mActionView, 0f);
+                mActionView.setAlpha(0f);
                 ViewCompat.animate(mActionView)
                         .alpha(1f)
                         .setDuration(duration)
@@ -722,7 +680,7 @@ public final class TSnackbar {
         }
 
         void animateChildrenOut(int delay, int duration) {
-            ViewCompat.setAlpha(mMessageView, 1f);
+            mMessageView.setAlpha(1f);
             ViewCompat.animate(mMessageView)
                     .alpha(0f)
                     .setDuration(duration)
@@ -730,7 +688,7 @@ public final class TSnackbar {
                     .start();
 
             if (mActionView.getVisibility() == VISIBLE) {
-                ViewCompat.setAlpha(mActionView, 1f);
+                mActionView.setAlpha(1f);
                 ViewCompat.animate(mActionView)
                         .alpha(0f)
                         .setDuration(duration)
@@ -800,12 +758,12 @@ public final class TSnackbar {
 
     final class Behavior extends SwipeDismissBehavior<SnackbarLayout> {
         @Override
-        public boolean canSwipeDismissView(View child) {
+        public boolean canSwipeDismissView(@NonNull View child) {
             return child instanceof SnackbarLayout;
         }
 
         @Override
-        public boolean onInterceptTouchEvent(CoordinatorLayout parent, SnackbarLayout child,
+        public boolean onInterceptTouchEvent(CoordinatorLayout parent, @NonNull SnackbarLayout child,
                                              MotionEvent event) {
 
 

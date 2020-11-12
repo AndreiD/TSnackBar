@@ -3,12 +3,13 @@ package com.androidadvance.tsnackbar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidadvance.topsnackbar.TSnackbar;
 
@@ -22,15 +23,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button_example_1 = (Button) findViewById(R.id.button_example_1);
-        Button button_example_2 = (Button) findViewById(R.id.button_example_2);
-        Button button_example_3 = (Button) findViewById(R.id.button_example_3);
-        Button button_example_4 = (Button) findViewById(R.id.button_example_4);
-        Button button_example_5 = (Button) findViewById(R.id.button_example_5);
-        Button button_example_6 = (Button) findViewById(R.id.button_example_6);
-        Button button_toolbar = (Button) findViewById(R.id.button_example_toolbar);
+        Button button_example_1 =  findViewById(R.id.button_example_1);
+        Button button_example_2 =  findViewById(R.id.button_example_2);
+        Button button_example_3 =  findViewById(R.id.button_example_3);
+        Button button_example_4 =  findViewById(R.id.button_example_4);
+        Button button_example_5 =  findViewById(R.id.button_example_5);
+        Button button_example_6 =  findViewById(R.id.button_example_6);
+        Button button_toolbar =  findViewById(R.id.button_example_toolbar);
 
-        relative_layout_main = (RelativeLayout) findViewById(R.id.relative_layout_main);
+        relative_layout_main =  findViewById(R.id.relative_layout_main);
 
         button_example_1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                 snackbar.setActionTextColor(Color.LTGRAY);
-                snackbar.addIcon(R.mipmap.ic_core, 200);
+                snackbar.setIconLeft(R.mipmap.ic_core, 24);
                 View snackbarView = snackbar.getView();
                 snackbarView.setBackgroundColor(Color.parseColor("#555555"));
                 TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
