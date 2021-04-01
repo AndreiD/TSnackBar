@@ -1,0 +1,21 @@
+{
+  "description": "Amazing test images immortalized on the blockchain.",
+  "external_url": "www.placeholder.com",
+  "image": "www.placeholder.com",
+  "name": "test 0",
+  "animation_url":"www.placeholder.com",
+  "attributes": [
+    {
+      "trait_type": "Accessory",
+      "value": "Red Square"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Green Circle"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Yellow Triangle"
+    }
+  ]
+}
