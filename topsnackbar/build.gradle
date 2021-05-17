@@ -5,10 +5,10 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 14
         targetSdkVersion 30
-        versionCode 10
-        versionName "1.9"
+        versionCode 200
+        versionName "2.0.0"
     }
     buildTypes {
         release {
