@@ -17,8 +17,13 @@ Icons support:
 
 ### Installation (app's build.gradle):
 
+
 ~~~~ groovy
-compile 'com.androidadvance:topsnackbar:$version'
+maven {
+            url 'https://jitpack.io'
+        }
+
+implementation 'com.github.Redman1037:TSnackBar:V2.0.0'
 ~~~~
 
 ### How to use it (a tutorial starting from **simple usage** to **complex one**):
