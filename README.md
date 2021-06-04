@@ -1,8 +1,6 @@
 Top Snackbar
 ==========================
 
-## Sadly, I don't have time to maintain this. If you'd like to be a maintainer, drop me a message in an issue
-
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-TSnackBar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2779) [ ![Download](https://api.bintray.com/packages/andreid/maven/topsnackbar/images/download.svg) ](https://bintray.com/andreid/maven/topsnackbar/_latestVersion)
 
 Show a Snackbar from the top. A big thanks to https://github.com/ejohansson, https://github.com/antoninovitale, https://github.com/hansonchris and everyone that took the time to make pull requests. 
@@ -17,8 +15,13 @@ Icons support:
 
 ### Installation (app's build.gradle):
 
+
 ~~~~ groovy
-compile 'com.androidadvance:topsnackbar:$version'
+maven {
+            url 'https://jitpack.io'
+        }
+
+implementation 'com.github.Redman1037:TSnackBar:V2.0.0'
 ~~~~
 
 ### How to use it (a tutorial starting from **simple usage** to **complex one**):

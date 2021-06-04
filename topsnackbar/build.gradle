@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 28
-        versionCode 10
-        versionName "1.9"
+        targetSdkVersion 30
+        versionCode 200
+        versionName "2.0.0"
     }
     buildTypes {
         release {
@@ -57,8 +57,8 @@ configurations {
 }
 
 dependencies {
-    implementation 'androidx.annotation:annotation:1.0.2'
-    javadocDeps 'androidx.annotation:annotation:1.0.2'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    javadocDeps 'androidx.annotation:annotation:1.1.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
 }
