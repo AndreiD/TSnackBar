@@ -1,4 +1,4 @@
-Top Snackbar
+Top Snackbar - dead project, see [#68](https://github.com/AndreiD/TSnackBar/issues/68)
 ==========================
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-TSnackBar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2779) [ ![Download](https://api.bintray.com/packages/andreid/maven/topsnackbar/images/download.svg) ](https://bintray.com/andreid/maven/topsnackbar/_latestVersion)
