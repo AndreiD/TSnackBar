@@ -3,7 +3,7 @@ Top Snackbar
 
 Looking for a contributor here, because I don't have time anymore to take care of this.
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-TSnackBar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2779) [ !
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-TSnackBar-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2779)
 
 Show a Snackbar from the top. A big thanks to https://github.com/ejohansson, https://github.com/antoninovitale, https://github.com/hansonchris and everyone that took the time to make pull requests. 
 
